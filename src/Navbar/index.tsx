@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import { NavContain } from './styles';
+import { NavContain, Title } from './styles';
 import Menu from './Menu';
+import Settings from './Settings';
+
 
 class Navbar extends Component {
 
@@ -8,6 +10,8 @@ class Navbar extends Component {
         return(
             <NavContain>
                 <Menu/>
+                <Title>CALEIDO</Title>
+                <Settings/>
             </NavContain>
         )
     }
