@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
 import Navbar from './Navbar'
 import Settings from './Settings'
-// import CanvasRenderer from './CanvasRenderer'
+import CanvasRenderer from './CanvasRenderer'
 import AppProvider from './Context/AppProvider'
+import DrawingMode from './DrawingMode'
+import { AppContain } from './styles'
 type State = {
 	settings: {
-		stroke: String,
+		stroke: string,
 	},
-	drawingMode: String
+	drawingMode: string,
+	showDrawingMode: boolean
 }
 
 type Props = {
@@ -19,21 +22,37 @@ class App extends Component<Props, State> {
 		settings: {
 			stroke: 'Near Point'
 		},
-		drawingMode: 'Mirror'
+		drawingMode: 'SquareRotation',
+		showDrawingMode: false
 	}
 
-	handleSettings = (option: String | any, value: String) => {
+	handleSettings = (option: string | any, value: string) => {
 		const { settings } = this.state;
 		this.setState({
 			settings: {
 				...settings,
 				[option]: value
 			}
+		});
+	}
+
+	handleDrawingMode = (drawingMode: string) =>{
+		this.setState({
+			drawingMode,
+			showDrawingMode: false
+		})
+	}
+
+	displayDrawingMode = ()=>{
+		const { showDrawingMode } = this.state;
+		this.setState({
+			showDrawingMode:!showDrawingMode
 		})
 	}
 
 	render() {
-		const { settings } = this.state
+		const { settings, drawingMode, showDrawingMode } = this.state;
+		const { stroke } = settings;
 		return (
 			<AppProvider
 				value={{
@@ -41,12 +60,14 @@ class App extends Component<Props, State> {
 					settings:settings,
 					// methods
 					handleSettings: this.handleSettings,
+					displayDrawingMode: this.displayDrawingMode
 				}}>
-				<div>
-					<Navbar />
+				<Navbar/>
+				<DrawingMode handleDrawingMode={this.handleDrawingMode} show={showDrawingMode}/>
+				<AppContain>
+					<CanvasRenderer mode={drawingMode} stroke={stroke} />
 					<Settings />
-					{/* <CanvasRenderer /> */}
-				</div>
+				</AppContain>
 			</AppProvider>
 		)
 	}

@@ -1,13 +1,12 @@
 import styled from 'styled-components'
 
 export const SettingsContain = styled.div`
-    position: fixed;
+    position: relative;
     width: 250px;
-    height: 100vh;
-    right:0;
+    height: 100%;
     border-left: 1px solid #d1d1d1;
-    display: flex;
 `
+
 export const PropContain = styled.div`
     position: relative;
     width: 250px;

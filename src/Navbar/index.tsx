@@ -4,6 +4,7 @@ import Menu from './Menu';
 import Settings from './Settings';
 
 
+
 class Navbar extends Component {
 
     render(){
