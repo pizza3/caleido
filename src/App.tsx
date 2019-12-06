@@ -2,12 +2,18 @@ import React, { Component } from 'react';
 import Navbar from './Navbar'
 import Settings from './Settings'
 import CanvasRenderer from './CanvasRenderer'
+import {Background} from './CanvasRenderer/styles'
+import GridHelper from './GridHelper'
 import AppProvider from './Context/AppProvider'
 import DrawingMode from './DrawingMode'
 import { AppContain } from './styles'
 type State = {
 	settings: {
 		stroke: string,
+		strokeColor:string,
+		background:string,
+		showGrid:boolean,
+		sections: number
 	},
 	drawingMode: string,
 	showDrawingMode: boolean
@@ -20,9 +26,13 @@ class App extends Component<Props, State> {
 
 	state = {
 		settings: {
-			stroke: 'Near Point'
+			stroke: 'Near Point',
+			strokeColor: '#000000',
+			background: '#ffffff',
+			showGrid:true,
+			sections: 6
 		},
-		drawingMode: 'SquareRotation',
+		drawingMode: 'Rotation',
 		showDrawingMode: false
 	}
 
@@ -51,8 +61,9 @@ class App extends Component<Props, State> {
 	}
 
 	render() {
-		const { settings, drawingMode, showDrawingMode } = this.state;
-		const { stroke } = settings;
+		const { settings, drawingMode, showDrawingMode} = this.state;
+		const { stroke, strokeColor, background, showGrid, sections } = settings;
+		const grid: JSX.Element|[] = showGrid ? <GridHelper mode={drawingMode} sections={sections}/>:[];
 		return (
 			<AppProvider
 				value={{
@@ -65,7 +76,9 @@ class App extends Component<Props, State> {
 				<Navbar/>
 				<DrawingMode handleDrawingMode={this.handleDrawingMode} show={showDrawingMode}/>
 				<AppContain>
-					<CanvasRenderer mode={drawingMode} stroke={stroke} />
+					<Background color={background}/>
+					{grid}
+					<CanvasRenderer mode={drawingMode} stroke={stroke} strokeColor={strokeColor} sections={sections} />
 					<Settings />
 				</AppContain>
 			</AppProvider>

@@ -11,6 +11,7 @@ export const Container = styled.div`
     overflow-y:auto;
     flex-direction: column;
     z-index: 1;
+    padding-bottom:50px;
     transition: 0.3s;
     transform: ${(props:{show:boolean})=>props.show?`translate(0px, 0px)`:`translate(-250px, 0px)`};
 `

@@ -19,12 +19,15 @@ export const MenuContain = styled.div`
 `
 
 export const Title = styled.div`
-    font-weight:900;
-    font-style: italic;
-    font-size: 28px;
+    font-weight: 900;
+    margin-top: 5px;
+    font-size: 19px;
     -webkit-text-stroke-width: 1px;
-    -webkit-text-stroke-color: #888888;
-    color: white;
+    -webkit-text-stroke-color: #282828;
+    color: #282828;
+    -webkit-letter-spacing: 5px;
+    -moz-letter-spacing: 5px;
+    -ms-letter-spacing: 5px;
     letter-spacing: 5px;
 
 `

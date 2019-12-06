@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Container, OptionContain, OptionImg, OptionTitle} from './styles'
-import img from '../Assets/img.png'
+import img from '../Assets/img2.png'
 
 type Props = {
     handleDrawingMode: Function
