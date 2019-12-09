@@ -5,7 +5,7 @@ export const Container = styled.div`
     position: fixed;
     width: 250px;
     height: 100vh;
-    border-right: 1px solid #d1d1d1;
+    border-right: 1px solid #f1f1f1;
     background: #fff;
     display: flex;
     overflow-y:auto;
@@ -20,7 +20,7 @@ export const OptionContain = styled.div`
     position: relative;
     width: 100%;
     height:197px;
-    border-bottom: 1px solid #d1d1d1;
+    border-bottom: 1px solid #f1f1f1;
     cursor: pointer;
     padding: 4px;
     color: #000;

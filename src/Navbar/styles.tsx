@@ -4,7 +4,7 @@ export const NavContain = styled.div`
     position: relative;
     width: 100%;
     height: 50px;
-    border-bottom: 1px solid #d1d1d1;
+    border-bottom: 1px solid #f1f1f1;
     display: flex;
     justify-content:space-between;
     padding: 9px;

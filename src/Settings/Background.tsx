@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { PropContain, PropTitle, ColorPicker } from './styles';
+import { PropContain, PropTitle, ColorPicker, ColorPickerOverlay } from './styles';
 import AppContext from '../Context/AppContext';
+import {getTextColor} from '../helpers'
 
 class Index extends Component {
 
@@ -8,10 +9,14 @@ class Index extends Component {
         return(
             <AppContext.Consumer>
                 {(context: any) => {
+                    const color = context.settings.background
                     return (
                         <PropContain>
                             <PropTitle>Background</PropTitle>
-                            <ColorPicker type='color' value={context.settings.background} onChange={(e)=>{context.handleSettings('background',e.target.value)}}/>
+                            <div>
+                                <ColorPicker type='color' value={color} onChange={(e)=>{context.handleSettings('background',e.target.value)}}/>
+                                <ColorPickerOverlay background={color} color={getTextColor(color)}>{color}</ColorPickerOverlay>
+                            </div>
                         </PropContain>
                     )
                 }}

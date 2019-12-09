@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {Container, VerticalLine, HorizontalLine, ReferencePoint, Diagonal, Diagonal2,RotateLine} from './styles'
-import {TWOPI} from '../helpers'
 type Props = {
     mode: string
     sections: number
@@ -34,7 +33,7 @@ class Index extends Component <Props>{
 
     mirrorGrid=() =>{
         const width = window.innerWidth - 250
-        return ([<VerticalLine top={width/2}/>])
+        return (<VerticalLine top={width/2}/>)
     }
 
     rotationalGrid = ()=>{
@@ -72,9 +71,7 @@ class Index extends Component <Props>{
                 }
             }
         }
-
         return [...vert,...horz,...refs,...diag ]
-
     }
 
 

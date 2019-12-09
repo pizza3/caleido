@@ -6,16 +6,15 @@ import Settings from './Settings';
 
 
 class Navbar extends Component {
-
-    render(){
-        return(
-            <NavContain>
-                <Menu/>
-                <Title>CALEIDO</Title>
-                <Settings/>
-            </NavContain>
-        )
-    }
+  render() {
+    return (
+      <NavContain>
+        <Menu />
+        <Title>CALEIDO</Title>
+        <Settings />
+      </NavContain>
+    )
+  }
 }
 
 export default Navbar;

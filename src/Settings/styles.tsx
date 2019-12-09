@@ -5,7 +5,7 @@ export const SettingsContain = styled.div`
     width: 250px;
     height: 100%;
     background:#ffffff;
-    border-left: 1px solid #d1d1d1;
+    border-left: 1px solid #f1f1f1;
 `
 
 export const PropContain = styled.div`
@@ -17,7 +17,7 @@ export const PropContain = styled.div`
     padding-left: 8px;
     padding-right: 8px;
     justify-content: space-between;
-    border-bottom: 1px solid #d1d1d1;
+    border-bottom: 1px solid #f1f1f1;
 `
 
 export const PropTitle = styled.div`
@@ -45,9 +45,27 @@ export const ColorPicker = styled.input`
     height: 25px;
     border: 1px solid #d1d1d1;
     border-radius: 4px;
+    position: relative;
     margin-right: 7px;
-
+    z-index:2;
+    opacity:0;
 `
+export const ColorPickerOverlay = styled.div`
+    width: 141px;
+    position: absolute;
+    height: 25px;
+    border: 1px solid #d1d1d1;
+    border-radius: 4px;
+    z-index:1;
+    top: 14px;
+    font-weight: 600;
+    font-size: 11px;
+    padding-top: 4px;
+    padding-left: 9px;
+    background:${(props:{background:string,color:string})=>props.background};
+    color: ${(props)=>props.color};
+`
+
 
 
 export const Switch = styled.label`
@@ -58,8 +76,8 @@ export const Switch = styled.label`
     position: relative;
     display: inline-block;
     margin-right: 0.5rem;
-    width: 46px;
-    height: 26px;
+    width: 44px;
+    height: 24px;
     background-color: #d1d1d1;
     border-radius: 23px;
     vertical-align: text-bottom;
@@ -79,9 +97,9 @@ export const Switch = styled.label`
   i::after {
     content: "";
     position: absolute;
-    left: 0;
-    width: 22px;
-    height: 22px;
+    left: -1px;
+    width: 20px;
+    height: 20px;
     background-color: #ececec;
     border-radius: 11px;
     box-shadow: 0 2px 2px rgba(0, 0, 0, 0.24);
