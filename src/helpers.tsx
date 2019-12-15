@@ -6,6 +6,14 @@ export const midPointDiff = (x1: any, y1: any, activeBlock: any) => {
   }
 }
 
+export const distanceTwoPts = (x1: number, y1: number, x2: number, y2: number)=>{
+  var a = x1 - x2;
+  var b = y1 - y2;
+
+  var c = Math.sqrt( a*a + b*b );
+  return c
+}
+
 
 export const activeBlock = (x: number, y: number, sections: number) => {
   let blockx: number = Math.floor(x / sections)
@@ -21,6 +29,31 @@ export const activeBlock = (x: number, y: number, sections: number) => {
     x: blockx,
     y: blocky
   }
+}
+
+export const activeHex = (x1: number, y1: number, sections: number, width: number, height: number) => {
+  const side = 130;
+  const Height = 112.5;
+  let blockx: number = Math.floor(x1 / sections)
+  let blocky: number = Math.floor(y1 / height)
+  let nearest = {x:0,y:0};
+  let offset = 3*130 - 65
+    offset = !(blocky%2)? 3*130 - 65: 130
+    for(let y=blocky;y<=blocky+1;y++){
+      for(let x = offset;x<width+offset;x+=3*130){
+        if(nearest){
+          let checknew = distanceTwoPts(x,y*Height,x1,y1)
+          let checkold = distanceTwoPts(nearest.x,nearest.y,x1,y1)
+          if(checknew<checkold){            
+            nearest={x:x,y:y*Height}
+          }
+        }else{
+          nearest={x:x,y:y*Height}
+        }
+      }
+      offset = !(blocky%2)? 130 :  3*130 - 65
+    }    
+  return nearest
 }
 
 export const midPointBtw = (p1: { x: number, y: number }, p2: { x: number, y: number }) => {

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Container, OptionContain, OptionImg, OptionTitle } from './styles'
-import img from '../Assets/img2.png'
+import img from '../Assets/img3.png'
 
 type Props = {
   handleDrawingMode: Function
@@ -10,19 +10,47 @@ type Props = {
 
 const ModesData = [
   {
-    name: 'Mirror'
+    name: 'Mirror',
+    title: 'Mirror',
+    image: 'https://raw.githubusercontent.com/pizza3/asset/master/mirror.webp'
+    
+
   },
   {
-    name: 'Rotation'
+    name: 'Rotation',
+    title: 'Rotation',
+    image: 'https://raw.githubusercontent.com/pizza3/asset/master/rotation.png'
+
   },
   {
-    name: 'Kaliedo'
+    name: 'Kaliedo',
+    title: 'Kaliedo',
+    image: 'https://raw.githubusercontent.com/pizza3/asset/master/kaliedo.webp'
+
   },
   {
-    name: 'SquareRotation'
+    name: 'SquareRotation',
+    title: 'Square Rotation',
+    image: 'https://raw.githubusercontent.com/pizza3/asset/master/squarerotation.webp'
+
   },
   {
-    name: 'SquareKaliedo'
+    name: 'SquareKaliedo',
+    title: 'Square Kaliedo',
+    image: 'https://raw.githubusercontent.com/pizza3/asset/master/squarekaliedo.webp'
+
+
+  },
+  {
+    name: 'HexagonRotation',
+    title: 'Hexagon Rotation',
+    image: 'https://raw.githubusercontent.com/pizza3/asset/master/hexagonrotation.webp'
+
+  },
+  {
+    name: 'HexagonKaliedo',
+    title: 'Hexagon Kaliedo',
+    image: 'https://raw.githubusercontent.com/pizza3/asset/master/hexagonkaliedo.webp'
   }
 ]
 
@@ -33,8 +61,8 @@ export default class Index extends Component<Props>{
     const ModesList = ModesData.map((data) => {
       return (
         <OptionContain key={data.name} onClick={() => { handleDrawingMode(data.name) }}>
-          <OptionImg src={img} />
-          <OptionTitle>{data.name}</OptionTitle>
+          <OptionImg src={data.image} />
+          <OptionTitle>{data.title}</OptionTitle>
         </OptionContain>
       )
     })

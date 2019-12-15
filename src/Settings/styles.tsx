@@ -49,6 +49,7 @@ export const ColorPicker = styled.input`
     margin-right: 7px;
     z-index:2;
     opacity:0;
+    cursor: pointer;
 `
 export const ColorPickerOverlay = styled.div`
     width: 141px;
@@ -128,3 +129,15 @@ export const Switch = styled.label`
     transform: translate3d(22px, 2px, 0);
   }
 `;
+
+
+export const Button = styled.button`
+    width: 45px;
+    height: 24px;
+    border: 1px solid #d2d2d2;
+    border-radius: 4px;
+    border: none;
+    box-shadow: inset 0 0 1px #000;
+    background:${(props:{background:string, disabled:boolean})=>props.background};
+    cursor:${(props)=>props.disabled?'not-allowed':'pointer'};
+`

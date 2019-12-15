@@ -16,7 +16,8 @@ type State = {
     sections: number
   },
   drawingMode: string,
-  showDrawingMode: boolean
+  showDrawingMode: boolean,
+  data: []|ImageData[]
 }
 
 type Props = {
@@ -31,7 +32,8 @@ class App extends Component<Props, State> {
       showGrid: true,
       sections: 10
     },
-    drawingMode: 'Rotation',
+    data:[],
+    drawingMode: 'Mirror',
     showDrawingMode: false
   }
 
@@ -50,6 +52,7 @@ class App extends Component<Props, State> {
       drawingMode,
       showDrawingMode: false
     })
+    this.clearData()
   }
 
   displayDrawingMode = () => {
@@ -59,8 +62,30 @@ class App extends Component<Props, State> {
     })
   }
 
+  updateData = (imgData: ImageData) => {
+    const { data } = this.state;
+    this.setState({
+      data:[...data,imgData]
+    })
+  }
+
+  reCalData = (drawState:number) => {    
+    const { data } = this.state;
+    const len = data.length - 1
+    const newData = data.slice(0,len - drawState )
+    this.setState({
+      data:[...newData,data[data.length-1] ]
+    })
+  }
+
+  clearData = () =>{
+    this.setState({
+      data:[]
+    })
+  }
+
   render() {
-    const { settings, drawingMode, showDrawingMode } = this.state;
+    const { settings, drawingMode, showDrawingMode, data } = this.state;
     const { stroke, strokeColor, background, showGrid, sections } = settings;
     const grid: JSX.Element | [] = showGrid ? <GridHelper mode={drawingMode} sections={sections} /> : [];
     return (
@@ -68,6 +93,7 @@ class App extends Component<Props, State> {
         value={{
           // states
           settings: settings,
+          data: data,
           // methods
           handleSettings: this.handleSettings,
           displayDrawingMode: this.displayDrawingMode
@@ -77,8 +103,8 @@ class App extends Component<Props, State> {
         <AppContain>
           <Background color={background} />
           {grid}
-          <CanvasRenderer mode={drawingMode} stroke={stroke} strokeColor={strokeColor} sections={sections} />
-          <Settings />
+          <CanvasRenderer mode={drawingMode} stroke={stroke} strokeColor={strokeColor} sections={sections} updateData={this.updateData} />
+          <Settings data={data} settings={settings} reCalData={this.reCalData} clearData={this.clearData}  />
         </AppContain>
       </AppProvider>
     )

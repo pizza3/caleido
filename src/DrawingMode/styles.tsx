@@ -28,7 +28,7 @@ export const OptionContain = styled.div`
     transition: 0.3s;
 
     &:hover{
-        color: #d1d1d1;
+        color: #4f73f9;
         background: #000;
     }
 `

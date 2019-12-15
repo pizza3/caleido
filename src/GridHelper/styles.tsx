@@ -41,20 +41,20 @@ export const Diagonal = styled.div`
     background:#e7e7e7;
     position: absolute;
     transform-origin: left;
-    transform: rotate(45deg);
-    left:${(props:{left:number, top:number})=>props.left+'px'};
+    transform: ${(props:{left:number, top:number, angle:number})=>`rotate(${props.angle}deg)`};
+    left:${(props)=>props.left+'px'};
     top:${(props)=>props.top+'px'};
 
 `
 
 export const Diagonal2 = styled.div`
-    width: 367.7px;
+    width: 130px;
     height: 1px;
     background:#e7e7e7;
     position: absolute;
     transform-origin: left;
-    transform: rotate(135deg);
-    left:${(props:{left:number, top:number})=>2*130+props.left+'px'};
+    transform: ${(props:{left:number, top:number, angle:number})=>`rotate(${props.angle}deg)`};
+    left:${(props)=>props.left+'px'};
     top:${(props)=>props.top+'px'};
 
 `

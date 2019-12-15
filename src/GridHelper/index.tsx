@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Container, VerticalLine, HorizontalLine, ReferencePoint, Diagonal, Diagonal2,RotateLine} from './styles'
+import {Container, VerticalLine, HorizontalLine, ReferencePoint, Diagonal,RotateLine, Diagonal2} from './styles'
 type Props = {
     mode: string
     sections: number
@@ -24,8 +24,15 @@ class Index extends Component <Props>{
                 break;
             case 'SquareKaliedo':
                 grid = this.squareGrid()
+                break;                        
+            case 'HexagonRotation':
+                grid = this.triangleGrid()
+                break;                  
+            case 'HexagonKaliedo':
+                grid = this.triangleGrid()
                 break;                  
             default:
+                grid = this.mirrorGrid()
                 break;
         }
         return grid;
@@ -66,12 +73,42 @@ class Index extends Component <Props>{
             for(let x=130; x<=width+130; x+=2*130 ){
                 refs.push(<ReferencePoint key={`${y}${x}ReferencePoint`} top={y-4} left={x-4}/>)
                 if(mode==='SquareKaliedo'){
-                    diag.push(<Diagonal key={`${y}${x}Diagonal`} top={y-130} left={x-130}/>)
-                    diag.push(<Diagonal2 key={`${y}${x}Diagonal2`} top={y-130} left={x-130}/>)    
+                    diag.push(<Diagonal angle={45} key={`${y}${x}Diagonal`} top={y-130} left={x-130}/>)
+                    diag.push(<Diagonal angle={135} key={`${y}${x}Diagonal2`} top={y-130} left={x-130}/>)    
                 }
             }
         }
         return [...vert,...horz,...refs,...diag ]
+    }
+
+    triangleGrid = () => {
+        const {mode} = this.props
+        const width = window.innerWidth - 250
+        const height = window.innerHeight - 50
+
+        let vert = [], horz=[], refs=[], diag=[];
+
+        for(let i=112.5; i<=height+112.5; i+=112.5 ){
+            vert.push(<HorizontalLine key={i+'HorizontalLine'} top={i}/>)
+        }
+        let temp = 0;
+        for(let y=0; y<=height+112.5; y+=112.5){
+            const offset = !(temp%2)? 65 : 0;
+            for(let x=0; x<=width+130; x+=130){
+                diag.push(<Diagonal2 angle={60} key={`${x}${y}Diagonal`} top={y} left={x-offset}/>)
+                diag.push(<Diagonal2 angle={120} key={`${x}${y}Diagonal23`} top={y} left={x-offset}/>)
+            }
+            temp++;
+        }
+        let temp2 = 0;
+        for(let y=0; y<=height+112.5; y+=112.5){
+            const offset = !(temp2%2) ? 3*130 - 65 : 130;
+            for(let x=0; x<=width+130; x+=3*130){
+                refs.push(<ReferencePoint key={`${y}${x}ReferencePoint`} top={y-4} left={x+offset-4}></ReferencePoint>)
+            }
+            temp2++;
+        }
+        return [...vert,...diag, ...refs ]
     }
 
 

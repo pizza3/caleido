@@ -7,18 +7,31 @@ import Grid from './Grid'
 import Options from './Options'
 
 
-
-export default class Settings extends Component {
+type Props = {
+  data: []|ImageData[],
+    settings: {
+    stroke: string,
+    strokeColor: string,
+    background: string,
+    showGrid: boolean,
+    sections: number
+  },
+  reCalData:Function,
+  clearData: Function
+}
+export default class Settings extends Component<Props> {
 
 
   render() {
+    const {data, settings, reCalData, clearData} = this.props
     return (
       <SettingsContain>
-        <Options/>
+        <Options data={data} settings={settings} reCalData={reCalData} clearData={clearData}/>
         <Stroke />
         <StrokeColor />
         <Background />
         <Grid/>
+        {/* <Stroke /> */}
       </SettingsContain>
     )
   }

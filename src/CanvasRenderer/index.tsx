@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { CanvasContain } from './styles';
-import { midPointDiff, activeBlock, TWOPI, hexToRgb, scaleCanvas } from '../helpers';
+import { midPointDiff, activeBlock, TWOPI, hexToRgb, activeHex } from '../helpers';
 
 type States = {
   isDrawing: Boolean,
-  data: string[]
 }
 
 type EventVariables = {
@@ -23,12 +22,13 @@ type Props = {
   stroke: string
   strokeColor: string
   sections: number
+  updateData: Function,
+  // clearData: Function
 }
 
 export default class CanvasRenderer extends Component<Props, States>{
   state = {
     isDrawing: false,
-    data:[]
   }
 
   public static defaultProps = {
@@ -73,6 +73,7 @@ export default class CanvasRenderer extends Component<Props, States>{
 
   setModeTranformation = () => {
     const { mode } = this.props;
+    this.points=[]
     switch (mode) {
       case 'Rotation':
         this.resetRenderer()
@@ -97,8 +98,6 @@ export default class CanvasRenderer extends Component<Props, States>{
     this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
   }
 
-
-
   handleMouseMove = (e: EventVariables) => {
     e.preventDefault()
     const { mode, sections } = this.props;
@@ -116,14 +115,13 @@ export default class CanvasRenderer extends Component<Props, States>{
 
   handleMouseLeave = (e: EventVariables) => {
     e.preventDefault()
-    const { data } = this.state;
+    const { updateData } = this.props
+    if(this.points.length>1){
+      var imgData = this.ctx.getImageData(0, 0, this.width, this.height);
+      updateData(imgData)  
+    }
     this.points = [];
     this.isDrawing = false
-    var imgData = this.ctx.getImageData(0, 0, this.width, this.height);
-    this.setState({
-      data:[...data,imgData]
-    })
-
   }
 
   handleDrawingMode = (e: CoordinatePlane) => {
@@ -138,7 +136,10 @@ export default class CanvasRenderer extends Component<Props, States>{
         const limit = this.width / 2
         let offset: number = limit - e.x;
         this.handleStrokeType()
-        this.handleStrokeType(offset * 2)
+        // flip the render in order for mirror effect
+        this.ctx.translate(this.width, 0);
+        this.ctx.scale(-1, 1);
+        this.handleStrokeType()
         break;
       case 'Kaliedo':
         for (let i = 0; i < TWOPI; i += angle) {
@@ -153,19 +154,20 @@ export default class CanvasRenderer extends Component<Props, States>{
         const color = hexToRgb(strokeColor)      
         this.ctx.strokeStyle = `rgba(${color.r},${color.g},${color.b},0.1)`;
         for (let i = 0; i < TWOPI; i += angle) {
+          // this.drawSquare()
           this.ctx.setTransform(1, 0, 0, 1, 0, 0);
           this.ctx.translate(this.width / 2, this.height / 2);
           this.ctx.rotate(i);
           this.handleStrokeType()
-        }
+        } 
         break;
       case 'SquareRotation':
         for (let h = -this.sections; h <= this.height + this.sections; h += 2 * this.sections) {
           for (let w = -this.sections; w <= this.width + this.sections; w += 2 * this.sections) {
-            this.ctx.restore();
-            this.ctx.setTransform(1, 0, 0, 1, 0, 0);
-            this.ctx.translate(w, h);
             for (let i = 0; i < TWOPI; i += TWOPI / 4) {
+              this.ctx.restore();
+              this.ctx.setTransform(1, 0, 0, 1, 0, 0);
+              this.ctx.translate(w, h);  
               this.ctx.rotate(i);
               this.handleStrokeType()
             }
@@ -175,15 +177,48 @@ export default class CanvasRenderer extends Component<Props, States>{
       case 'SquareKaliedo':
         for (let h = -this.sections; h <= this.height + this.sections; h += 2 * this.sections) {
           for (let w = -this.sections; w <= this.width + this.sections; w += 2 * this.sections) {
-            this.ctx.restore();
-            this.ctx.setTransform(1, 0, 0, 1, 0, 0);
-            this.ctx.translate(w, h);
             for (let i = 0; i < TWOPI; i += TWOPI / 4) {
+              this.ctx.restore();
+              this.ctx.setTransform(1, 0, 0, 1, 0, 0);
+              this.ctx.translate(w, h);  
               this.ctx.rotate(i);
               this.handleStrokeType()
             }
           }
         }
+        break;
+        case 'HexagonRotation':
+          let temp = 0;
+          this.ctx.restore();
+          for(let y=0; y<=this.height+112.5; y+=112.5){
+            const offset = !(temp%2) ? -3*130 - 65 : 130;
+            for(let x=offset; x<=this.width+3*130; x+=3*130){
+              for (let i = 0; i <= TWOPI; i += TWOPI / 6) {
+                this.ctx.setTransform(1, 0, 0, 1, 0, 0);
+                this.ctx.translate(x, y);  
+                this.ctx.rotate(i);
+                this.handleStrokeType()
+              }
+            }
+            temp++
+          }
+          break;
+          case 'HexagonKaliedo':
+            let temp2 = 0;
+            this.ctx.restore();
+            for(let y=0; y<=this.height+112.5; y+=112.5){
+              const offset = !(temp2%2) ? -3*130 - 65 : 130;
+              for(let x=offset; x<=this.width+3*130; x+=3*130){
+                for (let i = 0; i <= TWOPI; i += TWOPI / 6) {
+                  this.ctx.setTransform(1, 0, 0, 1, 0, 0);
+                  this.ctx.translate(x, y);  
+                  this.ctx.rotate(i);
+                  this.handleStrokeType()
+                }
+              }
+              temp2++
+            }
+            break;
         break;
       default:
         break;
@@ -191,7 +226,7 @@ export default class CanvasRenderer extends Component<Props, States>{
   }
 
   handleStrokeType = (offset: number = 0) => {
-    // this.ctx.strokeStyle = 'rgba(0,0,0,0.1)';
+    this.ctx.strokeStyle = 'rgba(0,0,0,1)';
     // this.ctx.beginPath();
     // this.ctx.moveTo(this.points[this.points.length - 2].x+offset, this.points[this.points.length - 2].y);
     // this.ctx.lineTo(this.points[this.points.length - 1].x+offset, this.points[this.points.length - 1].y);
@@ -204,12 +239,12 @@ export default class CanvasRenderer extends Component<Props, States>{
         const dy = this.points[i].y - this.points[this.points.length - 1].y;
         const d = dx * dx + dy * dy;
         this.ctx.strokeStyle = `rgba(${color.r},${color.g},${color.b},0.1)`;
-        if (d < 1000) {
+        if (d < 500) {
           this.ctx.beginPath();
           this.ctx.moveTo(this.points[this.points.length - 1].x + offset + (dx * 0.2), this.points[this.points.length - 1].y + (dy * 0.2));
           this.ctx.lineTo(this.points[i].x + offset - (dx * 0.2), this.points[i].y - (dy * 0.2));
           this.ctx.stroke();
-          if (mode === 'Kaliedo' || mode === 'SquareKaliedo') {
+          if (mode === 'Kaliedo' || mode === 'HexagonKaliedo' || mode === 'SquareKaliedo') {
             this.ctx.beginPath();
             this.ctx.moveTo(-this.points[this.points.length - 1].x + (-dx * 0.2), this.points[this.points.length - 1].y + (dy * 0.2));
             this.ctx.lineTo(-this.points[i].x - (-dx * 0.2), this.points[i].y - (dy * 0.2));
@@ -227,10 +262,20 @@ export default class CanvasRenderer extends Component<Props, States>{
   }
 
   selectNearestReferencePoint = (e: CoordinatePlane) => {
+    const { mode } = this.props;
+
     let newactiveSection = activeBlock(e.x, e.y, this.sections)
-    this.activeBlock = {
-      x: newactiveSection.x * this.sections,
-      y: newactiveSection.y * this.sections
+    if(mode==='HexagonRotation'){
+      newactiveSection = activeHex(e.x, e.y, this.sections, this.width, this.height)
+      this.activeBlock = {
+        x: newactiveSection.x,
+        y: newactiveSection.y
+      }
+    }else{
+      this.activeBlock = {
+        x: newactiveSection.x * this.sections,
+        y: newactiveSection.y * this.sections
+      }
     }
   }
 
@@ -244,9 +289,21 @@ export default class CanvasRenderer extends Component<Props, States>{
     }else if(mode==='SquareRotation'||mode==='SquareKaliedo'){
       const psk = midPointDiff(e.x, e.y, this.activeBlock)
       this.points.push(psk)
-    }else{
+    }else if(mode==='HexagonRotation'){
+      const psk = midPointDiff(e.x, e.y, this.activeBlock)
+      this.points.push(psk)
+    }
+    else{
       this.points.push({ x: e.x, y: e.y });
     }
+  }
+
+  drawSquare = (w:number,h:number,i:number)=>{
+    this.ctx.setTransform(1, 0, 0, 1, 0, 0);
+    this.ctx.translate(w, h);  
+    this.ctx.rotate(i);
+    this.handleStrokeType()
+
   }
 
   render() {
