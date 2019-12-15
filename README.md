@@ -1,25 +1,28 @@
 # caleido
 
+Caleido is a drawing app for creating Tessellation's and symmetrical art. The application consist's of over 7 type of geometries such as mirror, kaliedo, square rotation etc., multiple stroke's, undo/redo etc. 
 
 ## Examples
 
 Mirror | Rotation 
 --- | --- 
-<img src="https://raw.githubusercontent.com/pizza3/asset/master/mirror.webp" alt="draging entities" width="100%" /> | <img src="https://raw.githubusercontent.com/pizza3/asset/master/rotation.png" alt="draging entities" width="100%" /> 
+<img src="https://raw.githubusercontent.com/pizza3/asset/master/mirror.webp" width="100%" /> | <img src="https://raw.githubusercontent.com/pizza3/asset/master/rotation.png" width="100%" /> 
 
 Kaliedo | Square Rotation 
 --- | --- 
-<img src="https://raw.githubusercontent.com/pizza3/asset/master/kaliedo.webp" alt="draging entities" width="100%" /> | <img src="https://raw.githubusercontent.com/pizza3/asset/master/squarerotation.webp" alt="draging entities" width="100%" /> 
+<img src="https://raw.githubusercontent.com/pizza3/asset/master/kaliedo.webp" width="100%" /> | <img src="https://raw.githubusercontent.com/pizza3/asset/master/squarerotation.webp" width="100%" /> 
 
 
 Square Kaliedo | Hexagon Rotation 
 --- | --- 
-<img src="https://raw.githubusercontent.com/pizza3/asset/master/squarekaliedo.webp" alt="draging entities" width="100%" /> | <img src="https://raw.githubusercontent.com/pizza3/asset/master/hexagonrotation.webp" alt="draging entities" width="100%" /> 
+<img src="https://raw.githubusercontent.com/pizza3/asset/master/squarekaliedo.webp" width="100%" /> | <img src="https://raw.githubusercontent.com/pizza3/asset/master/hexagonrotation.webp" width="100%" /> 
 
 
 Hexagon Kaliedo | Hexagon Rotation 
 --- | --- 
-<img src="https://raw.githubusercontent.com/pizza3/asset/master/hexagonkaliedo.webp" alt="draging entities" width="100%" /> | <img src="https://raw.githubusercontent.com/pizza3/asset/master/hexagonrotation.webp" alt="draging entities" width="100%" /> 
+<img src="https://raw.githubusercontent.com/pizza3/asset/master/hexagonkaliedo.webp" width="100%" /> | <img src="https://raw.githubusercontent.com/pizza3/asset/master/hexagonrotation.webp" width="100%" /> 
+
+## Resources
 
 
 ## Available Scripts

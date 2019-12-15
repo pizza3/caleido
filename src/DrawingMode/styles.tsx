@@ -26,10 +26,13 @@ export const OptionContain = styled.div`
     color: #000;
     background: #fff;
     transition: 0.3s;
+    filter: grayscale(100%);
 
     &:hover{
         color: #4f73f9;
         background: #000;
+        filter: grayscale(0%);
+
     }
 `
 

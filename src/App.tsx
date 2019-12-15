@@ -33,7 +33,7 @@ class App extends Component<Props, State> {
       sections: 10
     },
     data:[],
-    drawingMode: 'Mirror',
+    drawingMode: 'HexagonKaliedo',
     showDrawingMode: false
   }
 

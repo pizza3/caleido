@@ -114,7 +114,7 @@ export default class CanvasRenderer extends Component<Props, States>{
   }
 
   handleMouseLeave = (e: EventVariables) => {
-    e.preventDefault()
+    e.preventDefault() 
     const { updateData } = this.props
     if(this.points.length>1){
       var imgData = this.ctx.getImageData(0, 0, this.width, this.height);
@@ -226,7 +226,6 @@ export default class CanvasRenderer extends Component<Props, States>{
   }
 
   handleStrokeType = (offset: number = 0) => {
-    this.ctx.strokeStyle = 'rgba(0,0,0,1)';
     // this.ctx.beginPath();
     // this.ctx.moveTo(this.points[this.points.length - 2].x+offset, this.points[this.points.length - 2].y);
     // this.ctx.lineTo(this.points[this.points.length - 1].x+offset, this.points[this.points.length - 1].y);
@@ -253,11 +252,18 @@ export default class CanvasRenderer extends Component<Props, States>{
         }
       }
     } else {
+      this.ctx.lineWidth = 3;
+      this.ctx.strokeStyle = `rgba(${color.r},${color.g},${color.b},1)`;
       this.ctx.beginPath();
-      this.ctx.moveTo(this.points[this.points.length - 2].x + offset, this.points[this.points.length - 2].y);
-      this.ctx.lineTo(this.points[this.points.length - 1].x + offset, this.points[this.points.length - 1].y);
+      this.ctx.moveTo(this.points[this.points.length - 2].x, this.points[this.points.length - 2].y);
+      this.ctx.lineTo(this.points[this.points.length - 1].x, this.points[this.points.length - 1].y);
       this.ctx.stroke();
-
+      if (mode === 'Kaliedo' || mode === 'HexagonKaliedo' || mode === 'SquareKaliedo') {
+        this.ctx.beginPath();
+        this.ctx.moveTo(-this.points[this.points.length - 2].x, this.points[this.points.length - 2].y);
+        this.ctx.lineTo(-this.points[this.points.length - 1].x, this.points[this.points.length - 1].y);
+        this.ctx.stroke();  
+      }
     }
   }
 
@@ -289,7 +295,7 @@ export default class CanvasRenderer extends Component<Props, States>{
     }else if(mode==='SquareRotation'||mode==='SquareKaliedo'){
       const psk = midPointDiff(e.x, e.y, this.activeBlock)
       this.points.push(psk)
-    }else if(mode==='HexagonRotation'){
+    }else if(mode==='HexagonRotation' || mode==='HexagonKaliedo'){
       const psk = midPointDiff(e.x, e.y, this.activeBlock)
       this.points.push(psk)
     }

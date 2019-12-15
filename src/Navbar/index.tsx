@@ -11,7 +11,7 @@ class Navbar extends Component {
       <NavContain>
         <Menu />
         <Title>CALEIDO</Title>
-        {/* <Settings /> */}
+        <Settings />
       </NavContain>
     )
   }
