@@ -1,6 +1,27 @@
 # caleido
 
 
+## Examples
+
+Mirror | Rotation 
+--- | --- 
+<img src="https://raw.githubusercontent.com/pizza3/asset/master/mirror.webp" alt="draging entities" width="100%" /> | <img src="https://raw.githubusercontent.com/pizza3/asset/master/rotation.png" alt="draging entities" width="100%" /> 
+
+Kaliedo | Square Rotation 
+--- | --- 
+<img src="https://raw.githubusercontent.com/pizza3/asset/master/kaliedo.webp" alt="draging entities" width="100%" /> | <img src="https://raw.githubusercontent.com/pizza3/asset/master/squarerotation.webp" alt="draging entities" width="100%" /> 
+
+
+Square Kaliedo | Hexagon Rotation 
+--- | --- 
+<img src="https://raw.githubusercontent.com/pizza3/asset/master/squarekaliedo.webp" alt="draging entities" width="100%" /> | <img src="https://raw.githubusercontent.com/pizza3/asset/master/hexagonrotation.webp" alt="draging entities" width="100%" /> 
+
+
+Hexagon Kaliedo | Hexagon Rotation 
+--- | --- 
+<img src="https://raw.githubusercontent.com/pizza3/asset/master/hexagonkaliedo.webp" alt="draging entities" width="100%" /> | <img src="https://raw.githubusercontent.com/pizza3/asset/master/hexagonrotation.webp" alt="draging entities" width="100%" /> 
+
+
 ## Available Scripts
 
 In the project directory, you can run:
