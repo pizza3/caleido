@@ -28,7 +28,10 @@ class Index extends Component <Props>{
                 break;
             case 'SquareKaliedo':
                 grid = this.squareGrid()
-                break;                        
+                break;
+            case 'Hexagon':
+                grid = this.triangleGrid()
+                break;                         
             case 'HexagonRotation':
                 grid = this.triangleGrid()
                 break;                  

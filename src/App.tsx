@@ -35,7 +35,7 @@ class App extends Component<Props, State> {
       strokeWeight: 1
     },
     data:[],
-    drawingMode: 'SquareKaliedo',
+    drawingMode: 'Hexagon',
     showDrawingMode: false
   }
 

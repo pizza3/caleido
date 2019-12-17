@@ -41,6 +41,12 @@ const ModesData = [
 
   },
   {
+    name: 'Hexagon',
+    title: 'Hexagon',
+    image: 'https://raw.githubusercontent.com/pizza3/asset/master/hexagonrotation.png'
+
+  },
+  {
     name: 'HexagonRotation',
     title: 'Hexagon Rotation',
     image: 'https://raw.githubusercontent.com/pizza3/asset/master/hexagonrotation.png'

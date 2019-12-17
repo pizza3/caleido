@@ -184,6 +184,22 @@ export default class CanvasRenderer extends Component<Props, States>{
           }
         }
         break;
+        case 'Hexagon':
+          let temp3 = 0;
+          this.ctx.restore();
+          for(let y=0; y<=this.height+112.5; y+=112.5){
+            const offset = !(temp3%2) ? -3*130 - 65 : 130;
+            for(let x=offset; x<=this.width+3*130; x+=3*130){
+              for (let i = 0; i <TWOPI / 6; i += TWOPI / 6) {
+                this.ctx.setTransform(1, 0, 0, 1, 0, 0);
+                this.ctx.translate(x, y);  
+                this.ctx.rotate(i);
+                this.handleStrokeType()
+              }
+            }
+            temp3++
+          }
+        break;
         case 'HexagonRotation':
           let temp = 0;
           this.ctx.restore();
@@ -222,10 +238,10 @@ export default class CanvasRenderer extends Component<Props, States>{
   }
 
   handleStrokeType = (offset: number = 0) => {
-    // this.ctx.beginPath();
-    // this.ctx.moveTo(this.points[this.points.length - 2].x+offset, this.points[this.points.length - 2].y);
-    // this.ctx.lineTo(this.points[this.points.length - 1].x+offset, this.points[this.points.length - 1].y);
-    // this.ctx.stroke();
+    this.ctx.beginPath();
+    this.ctx.moveTo(this.points[this.points.length - 2].x+offset, this.points[this.points.length - 2].y);
+    this.ctx.lineTo(this.points[this.points.length - 1].x+offset, this.points[this.points.length - 1].y);
+    this.ctx.stroke();
     const { mode, stroke, strokeColor } = this.props;
     const color = hexToRgb(strokeColor)
     if (stroke === 'Near Point') {
@@ -293,7 +309,7 @@ export default class CanvasRenderer extends Component<Props, States>{
   selectNearestReferencePoint = (e: CoordinatePlane) => {
     const { mode } = this.props;
     let newactiveSection = activeBlock(e.x, e.y, this.sections)
-    if(mode==='HexagonRotation'){
+    if(mode==='HexagonRotation'||mode==='HexagonKaliedo'||mode==='Hexagon'){
       newactiveSection = activeHex(e.x, e.y, this.sections, this.width, this.height)
       this.activeBlock = {
         x: newactiveSection.x,
@@ -317,7 +333,7 @@ export default class CanvasRenderer extends Component<Props, States>{
     }else if(mode==='SquareRotation'||mode==='SquareKaliedo'){
       const psk:{x:number,y:number} = midPointDiff(e.x, e.y, this.activeBlock)
       this.points.push(psk)
-    }else if(mode==='HexagonRotation' || mode==='HexagonKaliedo'){
+    }else if(mode==='HexagonRotation' || mode==='HexagonKaliedo'||mode==='Hexagon'){
       const psk:{x:number,y:number} = midPointDiff(e.x, e.y, this.activeBlock)
       this.points.push(psk)
     }
