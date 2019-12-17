@@ -271,7 +271,6 @@ export default class CanvasRenderer extends Component<Props, States>{
         return 250
       }else if(strokeWeight===1){
         return 500
-
       }else if(strokeWeight===2){
         return 750
       }else{
