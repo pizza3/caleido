@@ -29,6 +29,7 @@ Hexagon Kaliedo | Hexagon Rotation
 These are some useful resources I referred and used for the development of this project.
 
 [Symmetry in Tessellations](http://www.tessellations.com/SymmetryTess.html)
+
 [Tessellations by Recognizable Figures](https://mathstat.slu.edu/escher/index.php/Tessellations_by_Recognizable_Figures)
 
 
