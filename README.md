@@ -33,6 +33,8 @@ These are some useful resources I referred and used for the development of this 
 [Tessellations by Recognizable Figures](https://mathstat.slu.edu/escher/index.php/Tessellations_by_Recognizable_Figures)
 
 
+[Exploring canvas drawing techniques](http://perfectionkills.com/exploring-canvas-drawing-techniques/)
+
 ## Available Scripts
 
 In the project directory, you can run:
