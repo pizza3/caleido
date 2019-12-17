@@ -234,8 +234,8 @@ export default class CanvasRenderer extends Component<Props, States>{
         const dy = this.points[i].y - this.points[this.points.length - 1].y;
         const d = dx * dx + dy * dy;
         this.ctx.strokeStyle = `rgba(${color.r},${color.g},${color.b},0.1)`;
-        
-        if (d < 500) {
+        const dLimit = this.handleStrokeWeight()
+        if (d < dLimit) {
           this.ctx.beginPath();
           this.ctx.moveTo(this.points[this.points.length - 1].x + offset + (dx * 0.2), this.points[this.points.length - 1].y + (dy * 0.2));
           this.ctx.lineTo(this.points[i].x + offset - (dx * 0.2), this.points[i].y - (dy * 0.2));
@@ -249,7 +249,7 @@ export default class CanvasRenderer extends Component<Props, States>{
         }
       }
     } else {
-      this.ctx.lineWidth = 3;
+      this.ctx.lineWidth = this.handleStrokeWeight();
       this.ctx.strokeStyle = `rgba(${color.r},${color.g},${color.b},1)`;
       this.ctx.beginPath();
       this.ctx.moveTo(this.points[this.points.length - 2].x, this.points[this.points.length - 2].y);
@@ -264,9 +264,35 @@ export default class CanvasRenderer extends Component<Props, States>{
     }
   }
 
+  handleStrokeWeight = ()=>{
+    const { strokeWeight, stroke } = this.props;
+    if(stroke==='Near Point'){
+      if(strokeWeight===0){
+        return 250
+      }else if(strokeWeight===1){
+        return 500
+
+      }else if(strokeWeight===2){
+        return 750
+      }else{
+        return 1000
+      }
+    }else{
+      if(strokeWeight===0){
+        return 1
+      }else if(strokeWeight===1){
+        return 5
+      }else if(strokeWeight===1){
+        return 10
+      }else{
+        return 15
+      }
+    }
+
+  }
+
   selectNearestReferencePoint = (e: CoordinatePlane) => {
     const { mode } = this.props;
-
     let newactiveSection = activeBlock(e.x, e.y, this.sections)
     if(mode==='HexagonRotation'){
       newactiveSection = activeHex(e.x, e.y, this.sections, this.width, this.height)
@@ -306,7 +332,6 @@ export default class CanvasRenderer extends Component<Props, States>{
     this.ctx.translate(w, h);  
     this.ctx.rotate(i);
     this.handleStrokeType()
-
   }
 
   render() {

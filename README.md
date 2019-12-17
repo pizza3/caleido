@@ -2,6 +2,8 @@
 
 Caleido is a drawing app for creating Tessellation's and symmetrical art. The application consist's of over 7 type of geometries such as mirror, kaliedo, square rotation etc., multiple stroke's, undo/redo etc. 
 
+<img src="https://raw.githubusercontent.com/pizza3/asset/master/caliedoui.png" width="100%"  />
+
 ## Examples
 
 Mirror | Rotation 
