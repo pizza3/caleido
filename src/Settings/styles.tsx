@@ -29,7 +29,7 @@ export const PropTitle = styled.div`
 `
 
 export const SelectBox = styled.select`
-    margin-right: 7px;
+    margin-right: 2px;
     width: 141px;
     border: 1px solid #d1d1d1;
     color: #5670ff;
@@ -46,7 +46,7 @@ export const ColorPicker = styled.input`
     border: 1px solid #d1d1d1;
     border-radius: 4px;
     position: relative;
-    margin-right: 7px;
+    margin-right: 2px;
     z-index:2;
     opacity:0;
     cursor: pointer;
@@ -130,7 +130,6 @@ export const Switch = styled.label`
   }
 `;
 
-
 export const Button = styled.button`
     width: 45px;
     height: 24px;
@@ -140,4 +139,42 @@ export const Button = styled.button`
     box-shadow: inset 0 0 1px #000;
     background:${(props:{background:string, disabled:boolean})=>props.background};
     cursor:${(props)=>props.disabled?'not-allowed':'pointer'};
+`
+
+export const WeightsCon = styled.div`
+    width: 141px;
+    height: 25px;
+    border: 1px solid #d1d1d1;
+    border-right: none;
+    border-radius: 4px;
+    margin-right: 2px;
+    display:flex;
+    overflow:hidden;
+
+`
+
+export const WeightButton = styled.button`
+    width: 35px;
+    height: 25px;
+    border:none;
+    border-right: 1px solid #d1d1d1;
+    background-color: ${(props:{radius:number,active:boolean})=>props.active?'#4f73f9':'#fff'};
+    cursor: pointer;
+    transition: 0.3s;
+
+    &::before {
+      content: "";
+      position: absolute;
+      background-color: ${(props)=>props.active?'#fff':'#000'};
+      width: ${(props)=>props.radius + 'px'};
+      height: ${(props)=>props.radius + 'px'};
+      margin-left:  ${(props)=>-props.radius/2 + 'px'};
+      margin-top:  ${(props)=>-props.radius /2+ 'px'};
+      border-radius:50%;
+    }
+
+    &:focus{
+      outline: none;
+    }
+
 `

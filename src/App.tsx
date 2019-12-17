@@ -13,7 +13,8 @@ type State = {
     strokeColor: string,
     background: string,
     showGrid: boolean,
-    sections: number
+    sections: number,
+    strokeWeight:number
   },
   drawingMode: string,
   showDrawingMode: boolean,
@@ -30,10 +31,11 @@ class App extends Component<Props, State> {
       strokeColor: '#000000',
       background: '#ffffff',
       showGrid: true,
-      sections: 10
+      sections: 10,
+      strokeWeight: 1
     },
     data:[],
-    drawingMode: 'HexagonKaliedo',
+    drawingMode: 'SquareKaliedo',
     showDrawingMode: false
   }
 
@@ -86,7 +88,7 @@ class App extends Component<Props, State> {
 
   render() {
     const { settings, drawingMode, showDrawingMode, data } = this.state;
-    const { stroke, strokeColor, background, showGrid, sections } = settings;
+    const { stroke, strokeColor, background, showGrid, sections, strokeWeight } = settings;
     const grid: JSX.Element | [] = showGrid ? <GridHelper mode={drawingMode} sections={sections} /> : [];
     return (
       <AppProvider
@@ -94,6 +96,7 @@ class App extends Component<Props, State> {
           // states
           settings: settings,
           data: data,
+          showDrawingMode:showDrawingMode,
           // methods
           handleSettings: this.handleSettings,
           displayDrawingMode: this.displayDrawingMode
@@ -103,7 +106,7 @@ class App extends Component<Props, State> {
         <AppContain>
           <Background color={background} />
           {grid}
-          <CanvasRenderer mode={drawingMode} stroke={stroke} strokeColor={strokeColor} sections={sections} updateData={this.updateData} />
+          <CanvasRenderer mode={drawingMode} stroke={stroke} strokeColor={strokeColor} sections={sections} updateData={this.updateData} strokeWeight={strokeWeight} />
           <Settings data={data} settings={settings} reCalData={this.reCalData} clearData={this.clearData}  />
         </AppContain>
       </AppProvider>

@@ -5,7 +5,7 @@ import StrokeColor from './StrokeColor'
 import Background from './Background'
 import Grid from './Grid'
 import Options from './Options'
-
+import StrokeWeight from './StrokeWeight'
 
 type Props = {
   data: []|ImageData[],
@@ -31,7 +31,7 @@ export default class Settings extends Component<Props> {
         <StrokeColor />
         <Background />
         <Grid/>
-        {/* <Stroke /> */}
+        <StrokeWeight />
       </SettingsContain>
     )
   }

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Container, OptionContain, OptionImg, OptionTitle } from './styles'
-import img from '../Assets/img3.png'
 
 type Props = {
   handleDrawingMode: Function
@@ -12,7 +11,7 @@ const ModesData = [
   {
     name: 'Mirror',
     title: 'Mirror',
-    image: 'https://raw.githubusercontent.com/pizza3/asset/master/mirror.webp'
+    image: 'https://raw.githubusercontent.com/pizza3/asset/master/mirror.png'
     
 
   },
@@ -25,32 +24,32 @@ const ModesData = [
   {
     name: 'Kaliedo',
     title: 'Kaliedo',
-    image: 'https://raw.githubusercontent.com/pizza3/asset/master/kaliedo.webp'
+    image: 'https://raw.githubusercontent.com/pizza3/asset/master/kaliedo.png'
 
   },
   {
     name: 'SquareRotation',
     title: 'Square Rotation',
-    image: 'https://raw.githubusercontent.com/pizza3/asset/master/squarerotation.webp'
+    image: 'https://raw.githubusercontent.com/pizza3/asset/master/squarerotation.png'
 
   },
   {
     name: 'SquareKaliedo',
     title: 'Square Kaliedo',
-    image: 'https://raw.githubusercontent.com/pizza3/asset/master/squarekaliedo.webp'
+    image: 'https://raw.githubusercontent.com/pizza3/asset/master/squarekaliedo.png'
 
 
   },
   {
     name: 'HexagonRotation',
     title: 'Hexagon Rotation',
-    image: 'https://raw.githubusercontent.com/pizza3/asset/master/hexagonrotation.webp'
+    image: 'https://raw.githubusercontent.com/pizza3/asset/master/hexagonrotation.png'
 
   },
   {
     name: 'HexagonKaliedo',
     title: 'Hexagon Kaliedo',
-    image: 'https://raw.githubusercontent.com/pizza3/asset/master/hexagonkaliedo.webp'
+    image: 'https://raw.githubusercontent.com/pizza3/asset/master/hexagonkaliedo.png'
   }
 ]
 

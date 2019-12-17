@@ -1,0 +1,56 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<App/> checks App render 1`] = `
+<AppProvider
+  value={
+    Object {
+      "data": Array [],
+      "displayDrawingMode": [Function],
+      "handleSettings": [Function],
+      "settings": Object {
+        "background": "#ffffff",
+        "sections": 10,
+        "showGrid": true,
+        "stroke": "Near Point",
+        "strokeColor": "#000000",
+      },
+    }
+  }
+>
+  <Navbar />
+  <Index
+    handleDrawingMode={[Function]}
+    show={false}
+  />
+  <styled.div>
+    <styled.div
+      color="#ffffff"
+    />
+    <Index
+      mode="HexagonRotation"
+      sections={10}
+    />
+    <CanvasRenderer
+      mode="HexagonRotation"
+      sections={10}
+      stroke="Near Point"
+      strokeColor="#000000"
+      updateData={[Function]}
+    />
+    <Settings
+      clearData={[Function]}
+      data={Array []}
+      reCalData={[Function]}
+      settings={
+        Object {
+          "background": "#ffffff",
+          "sections": 10,
+          "showGrid": true,
+          "stroke": "Near Point",
+          "strokeColor": "#000000",
+        }
+      }
+    />
+  </styled.div>
+</AppProvider>
+`;

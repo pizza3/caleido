@@ -6,7 +6,11 @@ type Props = {
 }
 
 class Index extends Component <Props>{
-    renderGrid=()=>{
+    static defaultProps = {
+        mode: 'Mirror',
+        sections: 10
+    }
+    renderGrid = () => { 
         const {mode} = this.props
         let grid : JSX.Element|JSX.Element[]|[] = [];
         switch (mode) {
@@ -38,7 +42,7 @@ class Index extends Component <Props>{
         return grid;
     }
 
-    mirrorGrid=() =>{
+    mirrorGrid = () =>{
         const width = window.innerWidth - 250
         return (<VerticalLine top={width/2}/>)
     }
@@ -70,7 +74,7 @@ class Index extends Component <Props>{
         }
 
         for(let y=130; y<=height+130; y+=2*130){
-            for(let x=130; x<=width+130; x+=2*130 ){
+            for(let x=130; x<=width+2*130; x+=2*130 ){
                 refs.push(<ReferencePoint key={`${y}${x}ReferencePoint`} top={y-4} left={x-4}/>)
                 if(mode==='SquareKaliedo'){
                     diag.push(<Diagonal angle={45} key={`${y}${x}Diagonal`} top={y-130} left={x-130}/>)
@@ -82,11 +86,10 @@ class Index extends Component <Props>{
     }
 
     triangleGrid = () => {
-        const {mode} = this.props
         const width = window.innerWidth - 250
         const height = window.innerHeight - 50
 
-        let vert = [], horz=[], refs=[], diag=[];
+        let vert = [], refs=[], diag=[];
 
         for(let i=112.5; i<=height+112.5; i+=112.5 ){
             vert.push(<HorizontalLine key={i+'HorizontalLine'} top={i}/>)

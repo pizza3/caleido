@@ -2,18 +2,22 @@ import React, { Component } from 'react';
 import { SelectBox, PropContain, PropTitle } from './styles';
 import AppContext from '../Context/AppContext';
 
-type ContextType = {
+interface ContextType {
   settings: {
-    stroke: String,
-  },
-  handleSettings: Function
+      stroke: string,
+      strokeColor: string,
+      background: string,
+      showGrid: boolean,
+      sections: number
+    },    
+  handleSettings: Function,
+  displayDrawingMode: Function
 }
 export default class Stroke extends Component {
   render() {
     return (
       <AppContext.Consumer>
-        {(context: any) => {
-          return (
+        {(context: any) => (
             <PropContain>
               <PropTitle>Stroke</PropTitle>
               <SelectBox value={context.settings.stroke} onChange={(e) => { context.handleSettings('stroke', e.target.value) }}>
@@ -22,7 +26,7 @@ export default class Stroke extends Component {
               </SelectBox>
             </PropContain>
           )
-        }}
+        }
       </AppContext.Consumer>
     )
   }

@@ -8,8 +8,9 @@ export const Container = styled.div`
     border-right: 1px solid #f1f1f1;
     background: #fff;
     display: flex;
-    overflow-y:auto;
     flex-direction: column;
+    -webkit-overflow-scrolling: touch;
+    overflow: scroll;
     z-index: 1;
     padding-bottom:50px;
     transition: 0.3s;

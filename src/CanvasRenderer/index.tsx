@@ -3,7 +3,7 @@ import { CanvasContain } from './styles';
 import { midPointDiff, activeBlock, TWOPI, hexToRgb, activeHex } from '../helpers';
 
 type States = {
-  isDrawing: Boolean,
+  isDrawing: boolean,
 }
 
 type EventVariables = {
@@ -22,8 +22,8 @@ type Props = {
   stroke: string
   strokeColor: string
   sections: number
+  strokeWeight: number
   updateData: Function,
-  // clearData: Function
 }
 
 export default class CanvasRenderer extends Component<Props, States>{
@@ -43,9 +43,9 @@ export default class CanvasRenderer extends Component<Props, States>{
   height: number = 0;
 
   // Mouse interaction variables .
-  points: any | [] = [];
+  points: {x:number, y:number}[] = [];
   sections: number = 130;
-  isDrawing: Boolean = false
+  isDrawing: boolean = false
   activeBlock: CoordinatePlane = { x: this.sections, y: this.sections }
 
   componentDidMount() {
@@ -61,12 +61,10 @@ export default class CanvasRenderer extends Component<Props, States>{
 
   // sets canvas and ctx 
   setRenderer = () => {
-    this.canvasRender = document.getElementById('canvasRender');
+    this.canvasRender = document.getElementById('canvasRender');    
     this.ctx = this.canvasRender.getContext('2d');
     this.canvasRender.width = this.width = window.innerWidth - 250;
     this.canvasRender.height = this.height = window.innerHeight - 50;
-    // scaleCanvas(this.canvasRender,this.ctx,window.innerWidth,window.innerHeight)
-    this.ctx.lineWidth = 1;
     this.ctx.lineJoin = this.ctx.lineCap = 'round';
     this.setModeTranformation()
   }
@@ -100,7 +98,6 @@ export default class CanvasRenderer extends Component<Props, States>{
 
   handleMouseMove = (e: EventVariables) => {
     e.preventDefault()
-    const { mode, sections } = this.props;
     if (this.isDrawing) {
       this.handleDrawingMode({ x: e.clientX, y: e.clientY - 50 })
       }
@@ -219,7 +216,6 @@ export default class CanvasRenderer extends Component<Props, States>{
               temp2++
             }
             break;
-        break;
       default:
         break;
     }
@@ -238,6 +234,7 @@ export default class CanvasRenderer extends Component<Props, States>{
         const dy = this.points[i].y - this.points[this.points.length - 1].y;
         const d = dx * dx + dy * dy;
         this.ctx.strokeStyle = `rgba(${color.r},${color.g},${color.b},0.1)`;
+        
         if (d < 500) {
           this.ctx.beginPath();
           this.ctx.moveTo(this.points[this.points.length - 1].x + offset + (dx * 0.2), this.points[this.points.length - 1].y + (dy * 0.2));
@@ -293,10 +290,10 @@ export default class CanvasRenderer extends Component<Props, States>{
          * canvas is translated by width / 2 & height / 2. */
       this.points.push({ x: e.x - this.width / 2, y: e.y - this.height / 2 });
     }else if(mode==='SquareRotation'||mode==='SquareKaliedo'){
-      const psk = midPointDiff(e.x, e.y, this.activeBlock)
+      const psk:{x:number,y:number} = midPointDiff(e.x, e.y, this.activeBlock)
       this.points.push(psk)
     }else if(mode==='HexagonRotation' || mode==='HexagonKaliedo'){
-      const psk = midPointDiff(e.x, e.y, this.activeBlock)
+      const psk:{x:number,y:number} = midPointDiff(e.x, e.y, this.activeBlock)
       this.points.push(psk)
     }
     else{
