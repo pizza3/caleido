@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/caleido/static/css/main.23962010.chunk.css",
-    "main.js": "/caleido/static/js/main.d442321c.chunk.js",
-    "main.js.map": "/caleido/static/js/main.d442321c.chunk.js.map",
+    "main.js": "/caleido/static/js/main.8c7a34ff.chunk.js",
+    "main.js.map": "/caleido/static/js/main.8c7a34ff.chunk.js.map",
     "runtime-main.js": "/caleido/static/js/runtime-main.9b857941.js",
     "runtime-main.js.map": "/caleido/static/js/runtime-main.9b857941.js.map",
     "static/js/2.f26d6b6e.chunk.js": "/caleido/static/js/2.f26d6b6e.chunk.js",
     "static/js/2.f26d6b6e.chunk.js.map": "/caleido/static/js/2.f26d6b6e.chunk.js.map",
     "index.html": "/caleido/index.html",
-    "precache-manifest.37ebf1186da008887c2a80eac6fdd121.js": "/caleido/precache-manifest.37ebf1186da008887c2a80eac6fdd121.js",
+    "precache-manifest.b8618a623e6d7c515fab33d1d13e4fdd.js": "/caleido/precache-manifest.b8618a623e6d7c515fab33d1d13e4fdd.js",
     "service-worker.js": "/caleido/service-worker.js",
     "static/css/main.23962010.chunk.css.map": "/caleido/static/css/main.23962010.chunk.css.map"
   },
@@ -16,6 +16,6 @@
     "static/js/runtime-main.9b857941.js",
     "static/js/2.f26d6b6e.chunk.js",
     "static/css/main.23962010.chunk.css",
-    "static/js/main.d442321c.chunk.js"
+    "static/js/main.8c7a34ff.chunk.js"
   ]
 }
