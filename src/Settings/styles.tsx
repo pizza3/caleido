@@ -14,18 +14,18 @@ export const PropContain = styled.div`
     height: 50px;
     display: flex;
     padding-top: 13px;
-    padding-left: 8px;
-    padding-right: 8px;
+    padding-left: 5px;
+    padding-right: 5px;
     justify-content: space-between;
     border-bottom: 1px solid #f1f1f1;
 `
 
-export const PropTitle = styled.div`
-    font-weight: 900;
+export const PropTitle = styled.label`
+    font-weight: 700;
     user-select: none;
     color: #535353;
     margin-top: 4px;
-    font-size: 11px;
+    font-size: 12px;
 
 `
 
@@ -61,7 +61,7 @@ export const ColorPickerOverlay = styled.div`
     z-index:1;
     top: 14px;
     font-weight: 600;
-    font-size: 11px;
+    font-size: 12px;
     padding-top: 4px;
     padding-left: 9px;
     background:${(props:{background:string,color:string})=>props.background};
@@ -92,7 +92,7 @@ export const Switch = styled.label`
     width: 42px;
     height: 22px;
     background-color: #d1d1d1;
-    border-radius: 11px;
+    border-radius: 12px;
     transform: translate3d(2px, 2px, 0) scale3d(1, 1, 1);
     transition: all 0.25s linear;
   }
@@ -103,7 +103,7 @@ export const Switch = styled.label`
     width: 20px;
     height: 20px;
     background-color: #ececec;
-    border-radius: 11px;
+    border-radius: 12px;
     box-shadow: 0 2px 2px rgba(0, 0, 0, 0.24);
     transform: translate3d(2px, 2px, 0);
     transition: all 0.2s ease-in-out;

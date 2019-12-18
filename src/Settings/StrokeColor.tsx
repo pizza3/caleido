@@ -10,9 +10,9 @@ const StrokeColor : React.FC<{ title: string, keyValue:string }> = ({title, keyV
           const color = context.settings[keyValue]
           return (
             <PropContain>
-              <PropTitle>{title}</PropTitle>
+              <PropTitle htmlFor={keyValue}>{title}</PropTitle>
               <div>
-                <ColorPicker type='color' value={color} onChange={(e) => { context.handleSettings(keyValue, e.target.value) }} />
+                <ColorPicker id={keyValue} type='color' value={color} onChange={(e) => { context.handleSettings(keyValue, e.target.value) }} />
                 <ColorPickerOverlay background={color} color={getTextColor(color)}>{color}</ColorPickerOverlay>
               </div>
             </PropContain>

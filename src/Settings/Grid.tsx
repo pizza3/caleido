@@ -14,9 +14,10 @@ const Grid: React.FC = () => {
       {(context: any) => {
         return (
           <PropContain>
-            <PropTitle>Grid</PropTitle>
+            <PropTitle htmlFor="grid">Grid</PropTitle>
             <Switch>
               <input
+                id="grid"
                 type="checkbox"
                 checked={context.settings.showGrid}
                 onChange={(e) => { context.handleSettings('showGrid', e.target.checked) }}

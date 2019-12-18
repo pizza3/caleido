@@ -14,10 +14,11 @@ const Sections : React.FC = () => {
         {(context: any) => {
           return (
             <PropContain>
-              <PropTitle>Sections</PropTitle>
+              <PropTitle htmlFor="sections">Sections</PropTitle>
               <RangeContain>
                   <RangeValue>{context.settings.sections}</RangeValue>
                   <RangeStyle
+                    id="sections"
                     type="range"
                     min={3}
                     max={20}

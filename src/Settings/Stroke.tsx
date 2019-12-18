@@ -18,11 +18,11 @@ const Stroke : React.FC = () => {
       <AppContext.Consumer>
         {(context: any) => (
             <PropContain>
-              <PropTitle>Stroke</PropTitle>
-              <SelectBox value={context.settings.stroke} onChange={(e) => { context.handleSettings('stroke', e.target.value) }}>
-                <option value='Line'>Line</option>
-                <option value='Near Point'>Near Point</option>
-              </SelectBox>
+              <PropTitle htmlFor="stroke">Stroke</PropTitle>
+                <SelectBox id='stroke' value={context.settings.stroke} onChange={(e) => { context.handleSettings('stroke', e.target.value) }}>
+                  <option value='Line'>Line</option>
+                  <option value='Near Point'>Near Point</option>
+                </SelectBox>
             </PropContain>
           )
         }
