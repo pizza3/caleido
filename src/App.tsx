@@ -20,12 +20,8 @@ type State = {
   showDrawingMode: boolean,
   data: []|ImageData[]
 }
-
-type Props = {
-
-}
-class App extends Component<Props, State> {
-  state = {
+class App extends Component<{}, State> {
+  state: State = {
     settings: {
       stroke: 'Near Point',
       strokeColor: '#000000',

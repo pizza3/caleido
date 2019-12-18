@@ -6,11 +6,6 @@ type States = {
   isDrawing: boolean,
 }
 
-type EventVariables = {
-  clientX: number
-  clientY: number
-  preventDefault: Function
-}
 
 type CoordinatePlane = {
   x: number
@@ -27,7 +22,7 @@ type Props = {
 }
 
 export default class CanvasRenderer extends Component<Props, States>{
-  state = {
+  state: States = {
     isDrawing: false,
   }
 
@@ -96,21 +91,25 @@ export default class CanvasRenderer extends Component<Props, States>{
     this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
   }
 
-  handleMouseMove = (e: EventVariables) => {
+  handleMouseMove = (e: React.MouseEvent) => {
     e.preventDefault()
+    e.persist();
     if (this.isDrawing) {
-      this.handleDrawingMode({ x: e.clientX, y: e.clientY - 50 })
+      this.handleDrawingMode({ x:  e.clientX, y:  e.clientY- 50 })
       }
   }
 
-  handleMouseDown = (e: EventVariables) => {
-    e.preventDefault()
+  handleMouseDown = (e: React.MouseEvent ) => {
+    e.preventDefault();
+    e.persist();
     this.pushPoints({ x: e.clientX, y: e.clientY - 50 })
+    // this.pushPoints({ x: e.touches ? e.touches[0].clientX : e.clientX, y: e.touches ? e.touches[0].clientY -50: e.clientY- 50 })
     this.isDrawing = true
-    this.selectNearestReferencePoint({ x: e.clientX, y: e.clientY - 50 })
+    // this.selectNearestReferencePoint({ x: e.touches ? e.touches[0].clientX : e.clientX, y: e.touches ? e.touches[0].clientY -50: e.clientY- 50 })
+    this.selectNearestReferencePoint({ x:  e.clientX, y: e.clientY- 50 })
   }
 
-  handleMouseLeave = (e: EventVariables) => {
+  handleMouseLeave = (e: React.MouseEvent) => {
     e.preventDefault() 
     const { updateData } = this.props
     if(this.points.length>1){
@@ -123,10 +122,10 @@ export default class CanvasRenderer extends Component<Props, States>{
 
   handleDrawingMode = (e: CoordinatePlane) => {
     const { mode, sections } = this.props;
-    const angle = TWOPI / sections
+    const angle: number = TWOPI / sections
     this.pushPoints({ x: e.x, y: e.y })
     const { strokeColor } = this.props;
-    const color = hexToRgb(strokeColor)      
+    const color : {r:number,g:number,b:number} = hexToRgb(strokeColor)      
     this.ctx.strokeStyle = `rgba(${color.r},${color.g},${color.b},0.1)`;
     switch (mode) {
       case 'Mirror':
@@ -145,11 +144,8 @@ export default class CanvasRenderer extends Component<Props, States>{
         }
         break;
       case 'Rotation':
-        const { strokeColor } = this.props;
-        const color = hexToRgb(strokeColor)      
         this.ctx.strokeStyle = `rgba(${color.r},${color.g},${color.b},0.1)`;
         for (let i = 0; i < TWOPI; i += angle) {
-          // this.drawSquare()
           this.ctx.setTransform(1, 0, 0, 1, 0, 0);
           this.ctx.translate(this.width / 2, this.height / 2);
           this.ctx.rotate(i);
@@ -245,11 +241,11 @@ export default class CanvasRenderer extends Component<Props, States>{
     if (stroke === 'Near Point') {
       this.ctx.lineWidth = 1;
       for (let i = 0, len = this.points.length; i < len; i++) {
-        const dx = this.points[i].x + offset - (this.points[this.points.length - 1].x + offset);
-        const dy = this.points[i].y - this.points[this.points.length - 1].y;
-        const d = dx * dx + dy * dy;
+        const dx: number = this.points[i].x + offset - (this.points[this.points.length - 1].x + offset);
+        const dy: number = this.points[i].y - this.points[this.points.length - 1].y;
+        const d: number = dx * dx + dy * dy;
         this.ctx.strokeStyle = `rgba(${color.r},${color.g},${color.b},0.1)`;
-        const dLimit = this.handleStrokeWeight()
+        const dLimit: number = this.handleStrokeWeight()
         if (d < dLimit) {
           this.ctx.beginPath();
           this.ctx.moveTo(this.points[this.points.length - 1].x + offset + (dx * 0.2), this.points[this.points.length - 1].y + (dy * 0.2));

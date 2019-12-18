@@ -1,19 +1,18 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { PropContain, PropTitle, ColorPicker, ColorPickerOverlay } from './styles';
 import AppContext from '../Context/AppContext';
 import { getTextColor } from '../helpers'
-class StrokeColor extends Component {
 
-  render() {
+const StrokeColor : React.FC<{ title: string, keyValue:string }> = ({title, keyValue})=> {
     return (
       <AppContext.Consumer>
         {(context: any) => {
-          const color = context.settings.strokeColor
+          const color = context.settings[keyValue]
           return (
             <PropContain>
-              <PropTitle>Stroke Color</PropTitle>
+              <PropTitle>{title}</PropTitle>
               <div>
-                <ColorPicker type='color' value={color} onChange={(e) => { context.handleSettings('strokeColor', e.target.value) }} />
+                <ColorPicker type='color' value={color} onChange={(e) => { context.handleSettings(keyValue, e.target.value) }} />
                 <ColorPickerOverlay background={color} color={getTextColor(color)}>{color}</ColorPickerOverlay>
               </div>
             </PropContain>
@@ -22,8 +21,6 @@ class StrokeColor extends Component {
       </AppContext.Consumer>
 
     )
-  }
-
 }
 
 export default StrokeColor;

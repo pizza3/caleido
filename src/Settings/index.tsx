@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { SettingsContain } from './styles'
 import Stroke from './Stroke'
 import StrokeColor from './StrokeColor'
-import Background from './Background'
 import Grid from './Grid'
 import Options from './Options'
 import StrokeWeight from './StrokeWeight'
@@ -30,8 +29,8 @@ export default class Settings extends Component<Props> {
       <SettingsContain>
         <Options data={data} settings={settings} reCalData={reCalData} clearData={clearData}/>
         <Stroke />
-        <StrokeColor />
-        <Background />
+        <StrokeColor title='Stroke Color' keyValue='strokeColor' />
+        <StrokeColor title='Background' keyValue='background' />
         <Grid/>
         <StrokeWeight />
         {isSections}

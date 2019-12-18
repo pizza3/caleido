@@ -1,20 +1,17 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { NavContain, Title } from './styles';
 import Menu from './Menu';
-import Settings from './Settings';
 
 
 
-class Navbar extends Component {
-  render() {
-    return (
-      <NavContain>
-        <Menu />
-        <Title>CALEIDO</Title>
-        <Settings />
-      </NavContain>
-    )
-  }
+const Navbar : React.FC = ()=>{
+  return(
+    <NavContain>
+      <Menu />
+      <Title>CALEIDO</Title>
+    </NavContain>
+
+  )
 }
 
 export default Navbar;

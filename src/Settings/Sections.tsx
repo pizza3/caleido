@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { PropContain, PropTitle, RangeStyle, RangeValue, RangeContain } from './styles';
 import AppContext from '../Context/AppContext';
 
@@ -8,8 +8,7 @@ type ContextType = {
   },
   handleSettings: Function
 }
-export default class Grid extends Component {
-  render() {
+const Sections : React.FC = () => {
     return (
       <AppContext.Consumer>
         {(context: any) => {
@@ -32,6 +31,7 @@ export default class Grid extends Component {
         }}
       </AppContext.Consumer>
     )
-  }
 }
+
+export default Sections;
 

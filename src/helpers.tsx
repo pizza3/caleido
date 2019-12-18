@@ -70,3 +70,55 @@ export const getTextColor = (hex:string='#000000') => {
   const check = 1 - (0.299 * rgb.r + 0.587 * rgb.g + 0.114 * rgb.b) / 255;
   return check < 0.5 ? 'black' : 'white';
 }
+
+export const ModesData = [
+  {
+    name: 'Mirror',
+    title: 'Mirror',
+    image: 'https://raw.githubusercontent.com/pizza3/asset/master/mirror.png'
+    
+
+  },
+  {
+    name: 'Rotation',
+    title: 'Rotation',
+    image: 'https://raw.githubusercontent.com/pizza3/asset/master/rotation.png'
+
+  },
+  {
+    name: 'Kaliedo',
+    title: 'Kaliedo',
+    image: 'https://raw.githubusercontent.com/pizza3/asset/master/kaliedo.png'
+
+  },
+  {
+    name: 'SquareRotation',
+    title: 'Square Rotation',
+    image: 'https://raw.githubusercontent.com/pizza3/asset/master/squarerotation.png'
+
+  },
+  {
+    name: 'SquareKaliedo',
+    title: 'Square Kaliedo',
+    image: 'https://raw.githubusercontent.com/pizza3/asset/master/squarekaliedo.png'
+
+
+  },
+  {
+    name: 'Hexagon',
+    title: 'Hexagon',
+    image: 'https://raw.githubusercontent.com/pizza3/asset/master/hexagon.png'
+
+  },
+  {
+    name: 'HexagonRotation',
+    title: 'Hexagon Rotation',
+    image: 'https://raw.githubusercontent.com/pizza3/asset/master/hexagonrotation.png'
+
+  },
+  {
+    name: 'HexagonKaliedo',
+    title: 'Hexagon Kaliedo',
+    image: 'https://raw.githubusercontent.com/pizza3/asset/master/hexagonkaliedo.png'
+  }
+]

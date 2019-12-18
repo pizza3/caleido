@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { SelectBox, PropContain, PropTitle } from './styles';
 import AppContext from '../Context/AppContext';
 
@@ -13,8 +13,7 @@ interface ContextType {
   handleSettings: Function,
   displayDrawingMode: Function
 }
-export default class Stroke extends Component {
-  render() {
+const Stroke : React.FC = () => {
     return (
       <AppContext.Consumer>
         {(context: any) => (
@@ -30,5 +29,6 @@ export default class Stroke extends Component {
       </AppContext.Consumer>
     )
   }
-}
+
+  export default Stroke;
 

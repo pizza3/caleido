@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { MenuContain } from './styles';
 import AppContext from '../Context/AppContext';
 type ContextType = {
@@ -7,9 +7,8 @@ type ContextType = {
   },
   handleSettings: Function
 }
-class Menu extends Component {
 
-  render() {
+const Menu: React.FC = ()=>{
     return (
       <AppContext.Consumer>
         {(context: any) =>
@@ -19,7 +18,7 @@ class Menu extends Component {
         }
       </AppContext.Consumer>
     )
-  }
 }
+
 
 export default Menu;
