@@ -39,9 +39,9 @@ export default class CanvasRenderer extends Component<Props, States>{
 
   // Mouse interaction variables .
   points: {x:number, y:number}[] = [];
-  sections: number = 130;
+  squaresections: number = 130;
   isDrawing: boolean = false
-  activeBlock: CoordinatePlane = { x: this.sections, y: this.sections }
+  activeBlock: CoordinatePlane = { x: this.squaresections, y: this.squaresections }
 
   componentDidMount() {
     this.setRenderer()
@@ -124,108 +124,66 @@ export default class CanvasRenderer extends Component<Props, States>{
     const { mode, sections } = this.props;
     const angle: number = TWOPI / sections
     this.pushPoints({ x: e.x, y: e.y })
-    const { strokeColor } = this.props;
-    const color : {r:number,g:number,b:number} = hexToRgb(strokeColor)      
-    this.ctx.strokeStyle = `rgba(${color.r},${color.g},${color.b},0.1)`;
-    switch (mode) {
-      case 'Mirror':
+    if(mode==='Mirror'){
+      this.handleStrokeType()
+      // flip the render in order for mirror effect
+      this.ctx.translate(this.width, 0);
+      this.ctx.scale(-1, 1);
+      this.handleStrokeType()
+    }else if(mode==='Kaliedo'||mode==='Rotation'){
+      for (let i = 0; i < TWOPI; i += angle) {
+        this.ctx.setTransform(1, 0, 0, 1, 0, 0);
+        this.ctx.translate(this.width / 2, this.height / 2);
+        this.ctx.rotate(i);
         this.handleStrokeType()
-        // flip the render in order for mirror effect
-        this.ctx.translate(this.width, 0);
-        this.ctx.scale(-1, 1);
-        this.handleStrokeType()
-        break;
-      case 'Kaliedo':
-        for (let i = 0; i < TWOPI; i += angle) {
-          this.ctx.setTransform(1, 0, 0, 1, 0, 0);
-          this.ctx.translate(this.width / 2, this.height / 2);
-          this.ctx.rotate(i);
-          this.handleStrokeType()
-        }
-        break;
-      case 'Rotation':
-        this.ctx.strokeStyle = `rgba(${color.r},${color.g},${color.b},0.1)`;
-        for (let i = 0; i < TWOPI; i += angle) {
-          this.ctx.setTransform(1, 0, 0, 1, 0, 0);
-          this.ctx.translate(this.width / 2, this.height / 2);
-          this.ctx.rotate(i);
-          this.handleStrokeType()
-        } 
-        break;
-      case 'SquareRotation':
-        for (let h = -this.sections; h <= this.height + this.sections; h += 2 * this.sections) {
-          for (let w = -this.sections; w <= this.width + this.sections; w += 2 * this.sections) {
-            for (let i = 0; i < TWOPI; i += TWOPI / 4) {
-              this.ctx.restore();
-              this.ctx.setTransform(1, 0, 0, 1, 0, 0);
-              this.ctx.translate(w, h);  
-              this.ctx.rotate(i);
-              this.handleStrokeType()
-            }
-          }
-        }
-        break;
-      case 'SquareKaliedo':
-        for (let h = -this.sections; h <= this.height + this.sections; h += 2 * this.sections) {
-          for (let w = -this.sections; w <= this.width + this.sections; w += 2 * this.sections) {
-            for (let i = 0; i < TWOPI; i += TWOPI / 4) {
-              this.ctx.restore();
-              this.ctx.setTransform(1, 0, 0, 1, 0, 0);
-              this.ctx.translate(w, h);  
-              this.ctx.rotate(i);
-              this.handleStrokeType()
-            }
-          }
-        }
-        break;
-        case 'Hexagon':
-          let temp3 = -1;
-          this.ctx.restore();
-          for(let y=-112.5; y<=this.height+112.5; y+=112.5){
-            const offset = !(temp3%2) ? -3*130 - 65 : 130;
-            for(let x=offset; x<=this.width+3*130; x+=3*130){
-              this.ctx.setTransform(1, 0, 0, 1, 0, 0);
-              this.ctx.translate(x, y);  
-              this.ctx.rotate(0);
-              this.handleStrokeType()
-            }
-            temp3++
-          }
-        break;
-        case 'HexagonRotation':
-          let temp = 0;
-          this.ctx.restore();
-          for(let y=0; y<=this.height+112.5; y+=112.5){
-            const offset = !(temp%2) ? -3*130 - 65 : 130;
-            for(let x=offset; x<=this.width+3*130; x+=3*130){
-              for (let i = 0; i <= TWOPI; i += TWOPI / 6) {
-                this.ctx.setTransform(1, 0, 0, 1, 0, 0);
-                this.ctx.translate(x, y);  
-                this.ctx.rotate(i);
-                this.handleStrokeType()
-              }
-            }
-            temp++
-          }
-          break;
-          case 'HexagonKaliedo':
-            let temp2 = 0;
+      } 
+    }else if(mode==='SquareRotation'||mode==='SquareKaliedo'){
+      for (let h = -this.squaresections; h <= this.height + this.squaresections; h += 2 * this.squaresections) {
+        for (let w = -this.squaresections; w <= this.width + this.squaresections; w += 2 * this.squaresections) {
+          for (let i = 0; i < TWOPI; i += TWOPI / 4) {
             this.ctx.restore();
-            for(let y=0; y<=this.height+112.5; y+=112.5){
-              const offset = !(temp2%2) ? -3*130 - 65 : 130;
-              for(let x=offset; x<=this.width+3*130; x+=3*130){
-                for (let i = 0; i <= TWOPI; i += TWOPI / 6) {
-                  this.ctx.setTransform(1, 0, 0, 1, 0, 0);
-                  this.ctx.translate(x, y);  
-                  this.ctx.rotate(i);
-                  this.handleStrokeType()
-                }
-              }
-              temp2++
-            }
-            break;
-      default:
-        break;
+            this.ctx.setTransform(1, 0, 0, 1, 0, 0);
+            this.ctx.translate(w, h);  
+            this.ctx.rotate(i);
+            this.handleStrokeType()
+          }
+        }
+      }
+    }else if(mode==='Hexagon'){
+      let temp3 = -1;
+      this.ctx.restore();
+      for(let y=-112.5; y<=this.height+112.5; y+=112.5){
+        const offset = !(temp3%2) ? -3*130 - 65 : 130;
+        for(let x=offset; x<=this.width+3*130; x+=3*130){
+          this.ctx.setTransform(1, 0, 0, 1, 0, 0);
+          this.ctx.translate(x, y);  
+          this.ctx.rotate(0);
+          this.handleStrokeType()
+        }
+        temp3++
+      }
+    }else if(mode==='HexagonRotation'||mode==='HexagonKaliedo'){
+      let temp = 0;
+      this.ctx.restore();
+      for(let y=0; y<=this.height+112.5; y+=112.5){
+        const offset = !(temp%2) ? -3*130 - 65 : 130;
+        for(let x=offset; x<=this.width+3*130; x+=3*130){
+          for (let i = 0; i <= TWOPI; i += TWOPI / 6) {
+            this.ctx.setTransform(1, 0, 0, 1, 0, 0);
+            this.ctx.translate(x, y);  
+            this.ctx.rotate(i);
+            this.handleStrokeType()
+          }
+        }
+        temp++
+      }
+    }else{
+      // as a default case the mirror will exec.
+      this.handleStrokeType()
+      this.ctx.translate(this.width, 0);
+      this.ctx.scale(-1, 1);
+      this.handleStrokeType()
+
     }
   }
 
@@ -237,14 +195,14 @@ export default class CanvasRenderer extends Component<Props, States>{
     // this.ctx.stroke();
     }
     const { mode, stroke, strokeColor } = this.props;
-    const color = hexToRgb(strokeColor)
+    const color : {r:number,g:number,b:number} = hexToRgb(strokeColor)      
     if (stroke === 'Near Point') {
       this.ctx.lineWidth = 1;
+      this.ctx.strokeStyle = `rgba(${color.r},${color.g},${color.b},0.1)`;
       for (let i = 0, len = this.points.length; i < len; i++) {
         const dx: number = this.points[i].x + offset - (this.points[this.points.length - 1].x + offset);
         const dy: number = this.points[i].y - this.points[this.points.length - 1].y;
         const d: number = dx * dx + dy * dy;
-        this.ctx.strokeStyle = `rgba(${color.r},${color.g},${color.b},0.1)`;
         const dLimit: number = this.handleStrokeWeight()
         if (d < dLimit) {
           this.ctx.beginPath();
@@ -303,17 +261,17 @@ export default class CanvasRenderer extends Component<Props, States>{
 
   selectNearestReferencePoint = (e: CoordinatePlane) => {
     const { mode } = this.props;
-    let newactiveSection = activeBlock(e.x, e.y, this.sections)
+    let newactiveSection = activeBlock(e.x, e.y, this.squaresections)
     if(mode==='HexagonRotation'||mode==='HexagonKaliedo'||mode==='Hexagon'){
-      newactiveSection = activeHex(e.x, e.y, this.sections, this.width, this.height)
+      newactiveSection = activeHex(e.x, e.y, this.squaresections, this.width, this.height)
       this.activeBlock = {
         x: newactiveSection.x,
         y: newactiveSection.y
       }
     }else{
       this.activeBlock = {
-        x: newactiveSection.x * this.sections,
-        y: newactiveSection.y * this.sections
+        x: newactiveSection.x * this.squaresections,
+        y: newactiveSection.y * this.squaresections
       }
     }    
   }
@@ -326,6 +284,10 @@ export default class CanvasRenderer extends Component<Props, States>{
          * canvas is translated by width / 2 & height / 2. */
       this.points.push({ x: e.x - this.width / 2, y: e.y - this.height / 2 });
     }else if(mode==='SquareRotation'||mode==='SquareKaliedo'||mode==='HexagonRotation' || mode==='HexagonKaliedo'||mode==='Hexagon'){
+        /**  For the cases of SquareRotation,SquareKaliedo,HexagonRotation,HexagonKaliedo,Hexagon
+         *   the distance between mouse/touch and the reference point is taken and pushed into this.points,
+         *   this distance is basically normalised wrt 0,0.
+         */
       const psk:{x:number,y:number} = midPointDiff(e.x, e.y, this.activeBlock)
       this.points.push(psk)
     }else{
