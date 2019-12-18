@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { CanvasContain } from './styles';
+import { CanvasContain, CanvasOverlay } from './styles';
 import { midPointDiff, activeBlock, TWOPI, hexToRgb, activeHex } from '../helpers';
 
 type States = {
@@ -130,8 +130,6 @@ export default class CanvasRenderer extends Component<Props, States>{
     this.ctx.strokeStyle = `rgba(${color.r},${color.g},${color.b},0.1)`;
     switch (mode) {
       case 'Mirror':
-        const limit = this.width / 2
-        let offset: number = limit - e.x;
         this.handleStrokeType()
         // flip the render in order for mirror effect
         this.ctx.translate(this.width, 0);
@@ -190,12 +188,10 @@ export default class CanvasRenderer extends Component<Props, States>{
           for(let y=-112.5; y<=this.height+112.5; y+=112.5){
             const offset = !(temp3%2) ? -3*130 - 65 : 130;
             for(let x=offset; x<=this.width+3*130; x+=3*130){
-              for (let i = 0; i <TWOPI / 6; i += TWOPI / 6) {
-                this.ctx.setTransform(1, 0, 0, 1, 0, 0);
-                this.ctx.translate(x, y);  
-                this.ctx.rotate(i);
-                this.handleStrokeType()
-              }
+              this.ctx.setTransform(1, 0, 0, 1, 0, 0);
+              this.ctx.translate(x, y);  
+              this.ctx.rotate(0);
+              this.handleStrokeType()
             }
             temp3++
           }
@@ -238,7 +234,6 @@ export default class CanvasRenderer extends Component<Props, States>{
   }
 
   handleStrokeType = (offset: number = 0) => {
-    // console.log(this.points);
     if(this.points.length>1){
     // this.ctx.beginPath();
     // this.ctx.moveTo(this.points[this.points.length - 2].x+offset, this.points[this.points.length - 2].y);
@@ -350,7 +345,9 @@ export default class CanvasRenderer extends Component<Props, States>{
 
   render() {
     return (
-      <CanvasContain id='canvasRender' onMouseDown={this.handleMouseDown} onMouseMove={this.handleMouseMove} onMouseUp={this.handleMouseLeave} onMouseLeave={this.handleMouseLeave} ></CanvasContain>
+      <CanvasOverlay>
+        <CanvasContain id='canvasRender' onMouseDown={this.handleMouseDown} onMouseMove={this.handleMouseMove} onMouseUp={this.handleMouseLeave} onMouseLeave={this.handleMouseLeave} ></CanvasContain>
+      </CanvasOverlay>
     )
   }
 }

@@ -21,6 +21,7 @@ export const MenuContain = styled.div`
 export const Title = styled.div`
     font-weight: 900;
     margin-top: 5px;
+    user-select: none;
     font-size: 19px;
     -webkit-text-stroke-width: 1px;
     -webkit-text-stroke-color: #282828;

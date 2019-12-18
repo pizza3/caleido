@@ -33,7 +33,7 @@ describe('It checks helpers methods', () => {
     const sections = 130;
     const width = 800, height=800;
     const block = activeHex(x1, y1, sections,width,height)
-    expect(block).toEqual({ x: 520, y: 112.5 });    
+    expect(block).toEqual({ x: 520, y: 337.5 });    
   })
 
   it('hexTORgb() -> Checks for the hex to rgb conversion',()=>{

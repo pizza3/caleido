@@ -1,12 +1,15 @@
 import styled from 'styled-components'
 
 export const CanvasContain = styled.canvas`
-    position: relative;
+    position: absolute;
     cursor: crosshair;
+`
+export const CanvasOverlay = styled.div`
     width:calc(100% - 250px);
     height: cala(100vh - 50px);
+    overflow:hidden;
+    position: relative;
 `
-
 
 export const Background = styled.div`
     position: absolute;

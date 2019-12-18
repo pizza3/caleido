@@ -13,7 +13,7 @@ export const PropContain = styled.div`
     width: 250px;
     height: 50px;
     display: flex;
-    padding-top: 14px;
+    padding-top: 13px;
     padding-left: 8px;
     padding-right: 8px;
     justify-content: space-between;
@@ -22,6 +22,7 @@ export const PropContain = styled.div`
 
 export const PropTitle = styled.div`
     font-weight: 900;
+    user-select: none;
     color: #535353;
     margin-top: 4px;
     font-size: 11px;
@@ -34,7 +35,7 @@ export const SelectBox = styled.select`
     border: 1px solid #d1d1d1;
     color: #5670ff;
     outline: 0;
-    height: 25px;
+    height: 26px;
     border-radius: 2px;
     line-height: 10px;
     font-size: 10px;
@@ -42,7 +43,7 @@ export const SelectBox = styled.select`
 
 export const ColorPicker = styled.input`
     width: 141px;
-    height: 25px;
+    height: 26px;
     border: 1px solid #d1d1d1;
     border-radius: 4px;
     position: relative;
@@ -54,7 +55,7 @@ export const ColorPicker = styled.input`
 export const ColorPickerOverlay = styled.div`
     width: 141px;
     position: absolute;
-    height: 25px;
+    height: 26px;
     border: 1px solid #d1d1d1;
     border-radius: 4px;
     z-index:1;
@@ -137,13 +138,36 @@ export const Button = styled.button`
     border-radius: 4px;
     border: none;
     box-shadow: inset 0 0 1px #000;
-    background:${(props:{background:string, disabled:boolean})=>props.background};
+    background:${(props:{background:string, disabled:boolean,content:string})=>props.background};
     cursor:${(props)=>props.disabled?'not-allowed':'pointer'};
-`
+    &:focus{
+      outline: none;
+    }
+    &::before {
+      content: '${(props)=>`${props.content}`}';
+      color: #fff;
+      position: absolute;
+      background-color: #000;
+      width: auto;
+      height: 19px;
+      padding: 3px 7px 1px 7px;
+      margin: -30px 0px 0px ${(props)=>`-${props.content.length}%`};
+      border-radius: 4px;
+      display:none;
+      box-shadow: 0px 0px 12px -5px rgba(0,0,0,0.75);
+    }
+    &:hover{
+      &::before {
+        display:initial;
+      }
+    }
 
+
+
+`
 export const WeightsCon = styled.div`
     width: 141px;
-    height: 25px;
+    height: 26px;
     border: 1px solid #d1d1d1;
     border-right: none;
     border-radius: 4px;
@@ -155,7 +179,7 @@ export const WeightsCon = styled.div`
 
 export const WeightButton = styled.button`
     width: 35px;
-    height: 25px;
+    height: 26px;
     border:none;
     border-right: 1px solid #d1d1d1;
     background-color: ${(props:{radius:number,active:boolean})=>props.active?'#4f73f9':'#fff'};
@@ -169,7 +193,7 @@ export const WeightButton = styled.button`
       width: ${(props)=>props.radius + 'px'};
       height: ${(props)=>props.radius + 'px'};
       margin-left:  ${(props)=>-props.radius/2 + 'px'};
-      margin-top:  ${(props)=>-props.radius /2+ 'px'};
+      margin-top:  ${(props)=>-(props.radius /2)-1+ 'px'};
       border-radius:50%;
     }
 
@@ -178,3 +202,54 @@ export const WeightButton = styled.button`
     }
 
 `
+
+export const RangeStyle = styled.input`
+  -webkit-appearance: none;
+  background-color: #4f74f9;
+  width: 90px;
+  float: right;
+  height: 4px;
+  margin-top: 10px;
+  border-radius: 13px;
+  margin-right: 7px;
+  outline: 0;
+  &:focus{
+      outline: none;
+    }
+  ::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    background-color: #ffffff;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0px 0px 7px -2px rgba(0, 0, 0, 1);
+    transition: 0.3s ease-in-out;
+  }
+  ::-webkit-slider-thumb:active {
+    transform: scale(1.3);
+  }
+`;
+
+
+export const RangeValue = styled.div`
+  width: 35px;
+  height: 26px;
+  border: 1px solid #d2d2d2;
+  border-radius: 4px;
+  font-size: 12px;
+  text-align: center;
+  padding-top: 3px;
+  color: #4f74f9;
+  font-weight: 500;
+
+`
+
+export const RangeContain = styled.div`
+  display:flex;
+  width: 141px;
+  flex-direction: row;
+  justify-content: space-between;
+
+`
+

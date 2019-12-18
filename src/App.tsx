@@ -35,7 +35,7 @@ class App extends Component<Props, State> {
       strokeWeight: 1
     },
     data:[],
-    drawingMode: 'Hexagon',
+    drawingMode: 'Rotation',
     showDrawingMode: false
   }
 
@@ -107,7 +107,7 @@ class App extends Component<Props, State> {
           <Background color={background} />
           {grid}
           <CanvasRenderer mode={drawingMode} stroke={stroke} strokeColor={strokeColor} sections={sections} updateData={this.updateData} strokeWeight={strokeWeight} />
-          <Settings data={data} settings={settings} reCalData={this.reCalData} clearData={this.clearData}  />
+          <Settings data={data} settings={settings} reCalData={this.reCalData} clearData={this.clearData} mode={drawingMode}  />
         </AppContain>
       </AppProvider>
     )
