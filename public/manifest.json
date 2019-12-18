@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Caleido",
+  "name": "Create beautiful tessellations and symmetrical art.",
   "icons": [
     {
       "src": "favicon.ico",
