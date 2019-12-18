@@ -7,6 +7,7 @@ export const Container = styled.div`
     height: 100vh;
     border-right: 1px solid #f1f1f1;
     background: #fff;
+    user-select: none;
     display: flex;
     flex-direction: column;
     -webkit-overflow-scrolling: touch;
@@ -40,11 +41,14 @@ export const OptionContain = styled.div`
 export const OptionImg = styled.img`
     width: 240px;
     height: 160px;
-    
+    user-select: none;
+
 `
 
 export const OptionTitle = styled.div`
     font-size: 22px;
     font-weight: 900;
+    user-select: none;
+
 `
 
