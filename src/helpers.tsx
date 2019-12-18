@@ -32,7 +32,7 @@ export const activeBlock = (x: number, y: number, sections: number) => {
 export const activeHex = (x1: number, y1: number, sections: number, width: number, height: number) => {
   const side = 130;
   const Height = 112.5;
-  let blocky: number = Math.floor(y1 / height)
+  let blocky: number = Math.floor(y1 / Height)  
   let nearest = {x:0,y:0};
   let offset = 3*side - side/2
     offset = !(blocky%2)? 3*side - side/2: side

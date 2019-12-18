@@ -15,9 +15,9 @@ Kaliedo | Square Rotation
 <img src="https://raw.githubusercontent.com/pizza3/asset/master/kaliedo.png" width="100%" /> | <img src="https://raw.githubusercontent.com/pizza3/asset/master/squarerotation.png" width="100%" /> 
 
 
-Square Kaliedo | Hexagon Rotation 
+Square Kaliedo | Hexagon 
 --- | --- 
-<img src="https://raw.githubusercontent.com/pizza3/asset/master/squarekaliedo.png" width="100%" /> | <img src="https://raw.githubusercontent.com/pizza3/asset/master/hexagonrotation.png" width="100%" /> 
+<img src="https://raw.githubusercontent.com/pizza3/asset/master/squarekaliedo.png" width="100%" /> | <img src="https://raw.githubusercontent.com/pizza3/asset/master/hexagon.png" width="100%" /> 
 
 
 Hexagon Kaliedo | Hexagon Rotation 

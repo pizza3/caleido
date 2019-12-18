@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Container, OptionContain, OptionImg, OptionTitle } from './styles'
-
 type Props = {
   handleDrawingMode: Function
   show: boolean
@@ -43,7 +42,7 @@ const ModesData = [
   {
     name: 'Hexagon',
     title: 'Hexagon',
-    image: 'https://raw.githubusercontent.com/pizza3/asset/master/hexagonrotation.png'
+    image: 'https://raw.githubusercontent.com/pizza3/asset/master/hexagon.png'
 
   },
   {

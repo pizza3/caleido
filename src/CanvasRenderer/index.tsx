@@ -185,9 +185,9 @@ export default class CanvasRenderer extends Component<Props, States>{
         }
         break;
         case 'Hexagon':
-          let temp3 = 0;
+          let temp3 = -1;
           this.ctx.restore();
-          for(let y=0; y<=this.height+112.5; y+=112.5){
+          for(let y=-112.5; y<=this.height+112.5; y+=112.5){
             const offset = !(temp3%2) ? -3*130 - 65 : 130;
             for(let x=offset; x<=this.width+3*130; x+=3*130){
               for (let i = 0; i <TWOPI / 6; i += TWOPI / 6) {
@@ -238,10 +238,13 @@ export default class CanvasRenderer extends Component<Props, States>{
   }
 
   handleStrokeType = (offset: number = 0) => {
-    this.ctx.beginPath();
-    this.ctx.moveTo(this.points[this.points.length - 2].x+offset, this.points[this.points.length - 2].y);
-    this.ctx.lineTo(this.points[this.points.length - 1].x+offset, this.points[this.points.length - 1].y);
-    this.ctx.stroke();
+    // console.log(this.points);
+    if(this.points.length>1){
+    // this.ctx.beginPath();
+    // this.ctx.moveTo(this.points[this.points.length - 2].x+offset, this.points[this.points.length - 2].y);
+    // this.ctx.lineTo(this.points[this.points.length - 1].x+offset, this.points[this.points.length - 1].y);
+    // this.ctx.stroke();
+    }
     const { mode, stroke, strokeColor } = this.props;
     const color = hexToRgb(strokeColor)
     if (stroke === 'Near Point') {
@@ -320,7 +323,7 @@ export default class CanvasRenderer extends Component<Props, States>{
         x: newactiveSection.x * this.sections,
         y: newactiveSection.y * this.sections
       }
-    }
+    }    
   }
 
 
@@ -330,14 +333,10 @@ export default class CanvasRenderer extends Component<Props, States>{
         /**  giving an offset of width / 2 & height / 2 because
          * canvas is translated by width / 2 & height / 2. */
       this.points.push({ x: e.x - this.width / 2, y: e.y - this.height / 2 });
-    }else if(mode==='SquareRotation'||mode==='SquareKaliedo'){
+    }else if(mode==='SquareRotation'||mode==='SquareKaliedo'||mode==='HexagonRotation' || mode==='HexagonKaliedo'||mode==='Hexagon'){
       const psk:{x:number,y:number} = midPointDiff(e.x, e.y, this.activeBlock)
       this.points.push(psk)
-    }else if(mode==='HexagonRotation' || mode==='HexagonKaliedo'||mode==='Hexagon'){
-      const psk:{x:number,y:number} = midPointDiff(e.x, e.y, this.activeBlock)
-      this.points.push(psk)
-    }
-    else{
+    }else{
       this.points.push({ x: e.x, y: e.y });
     }
   }

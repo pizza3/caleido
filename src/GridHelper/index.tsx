@@ -110,7 +110,7 @@ class Index extends Component <Props>{
         for(let y=0; y<=height+112.5; y+=112.5){
             const offset = !(temp2%2) ? 3*130 - 65 : 130;
             for(let x=0; x<=width+130; x+=3*130){
-                refs.push(<ReferencePoint key={`${y}${x}ReferencePoint`} top={y-4} left={x+offset-4}></ReferencePoint>)
+            refs.push(<ReferencePoint key={`${y}${x}ReferencePoint`} top={y-4} left={x+offset-4}></ReferencePoint>)
             }
             temp2++;
         }
