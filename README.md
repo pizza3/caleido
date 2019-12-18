@@ -1,6 +1,6 @@
 # caleido
 
-Caleido is a drawing app for creating Tessellation's and symmetrical art. The application consist's of over 8 type's of symmetries such as Mirror, Rotation, Kaliedo, Square Rotation, Square Kaliedo, Hexagon, Hexagon Kaliedo & Hexagon Rotation. The app also consist's of a grid helper's for each symmetry.
+Caleido is a drawing app for creating Tessellation's and symmetrical art. The application consist's of over 8 type's of symmetries such as Mirror, Rotation, Kaliedo, Square Rotation, Square Kaliedo, Hexagon, Hexagon Kaliedo & Hexagon Rotation. The app also consist's of a grid helper's for each symmetry, Undo/Redo until any level, two types of strokes , etc.
 
 <img src="https://raw.githubusercontent.com/pizza3/asset/master/caliedoui2.png" width="100%"  />
 
