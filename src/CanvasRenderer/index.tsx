@@ -243,6 +243,7 @@ export default class CanvasRenderer extends Component<Props, States>{
     const { mode, stroke, strokeColor } = this.props;
     const color = hexToRgb(strokeColor)
     if (stroke === 'Near Point') {
+      this.ctx.lineWidth = 1;
       for (let i = 0, len = this.points.length; i < len; i++) {
         const dx = this.points[i].x + offset - (this.points[this.points.length - 1].x + offset);
         const dy = this.points[i].y - this.points[this.points.length - 1].y;
