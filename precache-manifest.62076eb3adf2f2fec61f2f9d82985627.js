@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "e679b2eef5e04c7e17dbd43354e94518",
+    "revision": "edb04f0dd132727bd002e68a157e7aaa",
     "url": "/caleido/index.html"
   },
   {
