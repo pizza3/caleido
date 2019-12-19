@@ -56,23 +56,31 @@ export default class Options extends Component<Props, States>{
   }
 
   downloadImage = () => {
-    const { data, settings } = this.props
+    const { settings } = this.props
+    const background = settings.background;
     this.canvas = document.getElementById('canvasRender')
     this.ctx = this.canvas.getContext('2d')
-    // var offScreenCanvas: any = document.createElement('canvas');
-    // offScreenCanvas.style.cssText = 'position:absolute;width:100%;height:100%;opacity:0.3;z-index:100;background:#000';
-    // document.body.appendChild(offScreenCanvas);
-    const image = data[data.length - 1];
-    // offScreenCanvas.width = `${this.ctx.canvas.width}px`;
-    // offScreenCanvas.height = `${this.ctx.canvas.height}px`;
-    const background = settings.background;
-    // var context = offScreenCanvas.getContext("2d");
-    // context.fillStyle = background;
-    // context.fillRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
-    // context.putImageData(image, this.ctx.canvas.width, this.ctx.canvas.height);
-    var img = this.ctx.toDataURL();
-    console.log(img);
-
+    // set a offscreencanvas
+    let offScreenCanvas: any = document.createElement('canvas');
+    offScreenCanvas.width = this.canvas.width;
+    offScreenCanvas.height = this.canvas.height;
+    let offctx: any = offScreenCanvas.getContext('2d');
+    // apply the background 
+    offctx.fillStyle = background;
+    offctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+    // apply the image drawn
+    offctx.drawImage(this.canvas, 0, 0);
+    // get the final image from offScreenCanvas
+    const img: string = offScreenCanvas.toDataURL("image/png");
+    // create a anchor el. for downloading image ref.
+    let link = document.createElement('a');
+    link.download = 'caleido.png';
+    link.href = img
+    // downloads the final image
+    link.click();  
+    // removes both offScreenCanvas & link(anchor)
+    link.remove();
+    offScreenCanvas.remove();
   }
 
 
