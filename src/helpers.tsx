@@ -75,50 +75,50 @@ export const ModesData = [
   {
     name: 'Mirror',
     title: 'Mirror',
-    image: 'https://raw.githubusercontent.com/pizza3/asset/master/mirror.png'
+    image: 'https://raw.githubusercontent.com/pizza3/asset/master/mirror.jpg'
     
 
   },
   {
     name: 'Rotation',
     title: 'Rotation',
-    image: 'https://raw.githubusercontent.com/pizza3/asset/master/rotation.png'
+    image: 'https://raw.githubusercontent.com/pizza3/asset/master/rotation.jpg'
 
   },
   {
     name: 'Kaliedo',
     title: 'Kaliedo',
-    image: 'https://raw.githubusercontent.com/pizza3/asset/master/kaliedo.png'
+    image: 'https://raw.githubusercontent.com/pizza3/asset/master/kaliedo.jpg'
 
   },
   {
     name: 'SquareRotation',
     title: 'Square Rotation',
-    image: 'https://raw.githubusercontent.com/pizza3/asset/master/squarerotation.png'
+    image: 'https://raw.githubusercontent.com/pizza3/asset/master/squarerotation.jpg'
 
   },
   {
     name: 'SquareKaliedo',
     title: 'Square Kaliedo',
-    image: 'https://raw.githubusercontent.com/pizza3/asset/master/squarekaliedo.png'
+    image: 'https://raw.githubusercontent.com/pizza3/asset/master/squarekaliedo.jpg'
 
 
   },
   {
     name: 'Hexagon',
     title: 'Hexagon',
-    image: 'https://raw.githubusercontent.com/pizza3/asset/master/hexagon.png'
+    image: 'https://raw.githubusercontent.com/pizza3/asset/master/hexagon.jpg'
 
   },
   {
     name: 'HexagonRotation',
     title: 'Hexagon Rotation',
-    image: 'https://raw.githubusercontent.com/pizza3/asset/master/hexagonrotation.png'
+    image: 'https://raw.githubusercontent.com/pizza3/asset/master/hexagonrotation.jpg'
 
   },
   {
     name: 'HexagonKaliedo',
     title: 'Hexagon Kaliedo',
-    image: 'https://raw.githubusercontent.com/pizza3/asset/master/hexagonkaliedo.png'
+    image: 'https://raw.githubusercontent.com/pizza3/asset/master/hexagonkaliedo.jpg'
   }
 ]
