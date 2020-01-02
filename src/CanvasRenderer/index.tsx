@@ -102,11 +102,11 @@ export default class CanvasRenderer extends Component<Props, States>{
   handleMouseDown = (e: React.MouseEvent ) => {
     e.preventDefault();
     e.persist();
+    this.selectNearestReferencePoint({ x:  e.clientX, y: e.clientY- 50 })
     this.pushPoints({ x: e.clientX, y: e.clientY - 50 })
     // this.pushPoints({ x: e.touches ? e.touches[0].clientX : e.clientX, y: e.touches ? e.touches[0].clientY -50: e.clientY- 50 })
     this.isDrawing = true
     // this.selectNearestReferencePoint({ x: e.touches ? e.touches[0].clientX : e.clientX, y: e.touches ? e.touches[0].clientY -50: e.clientY- 50 })
-    this.selectNearestReferencePoint({ x:  e.clientX, y: e.clientY- 50 })
   }
 
   handleMouseLeave = (e: React.MouseEvent) => {
@@ -188,12 +188,10 @@ export default class CanvasRenderer extends Component<Props, States>{
   }
 
   handleStrokeType = (offset: number = 0) => {
-    if(this.points.length>1){
     // this.ctx.beginPath();
     // this.ctx.moveTo(this.points[this.points.length - 2].x+offset, this.points[this.points.length - 2].y);
     // this.ctx.lineTo(this.points[this.points.length - 1].x+offset, this.points[this.points.length - 1].y);
     // this.ctx.stroke();
-    }
     const { mode, stroke, strokeColor } = this.props;
     const color : {r:number,g:number,b:number} = hexToRgb(strokeColor)      
     if (stroke === 'Near Point') {
@@ -218,6 +216,8 @@ export default class CanvasRenderer extends Component<Props, States>{
         }
       }
     } else {
+      console.log(this.points);
+      // if(this.points[this.points.length - 2].x<0||this.points[this.points.length - 1].x<0)return
       this.ctx.lineWidth = this.handleStrokeWeight();
       this.ctx.strokeStyle = `rgba(${color.r},${color.g},${color.b},1)`;
       this.ctx.beginPath();
