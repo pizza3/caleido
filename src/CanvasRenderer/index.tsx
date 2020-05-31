@@ -6,7 +6,6 @@ type States = {
   isDrawing: boolean,
 }
 
-
 type CoordinatePlane = {
   x: number
   y: number
@@ -38,7 +37,7 @@ export default class CanvasRenderer extends Component<Props, States>{
   height: number = 0;
 
   // Mouse interaction variables .
-  points: {x:number, y:number}[] = [];
+  points: { x: number, y: number }[] = [];
   squaresections: number = 130;
   isDrawing: boolean = false
   activeBlock: CoordinatePlane = { x: this.squaresections, y: this.squaresections }
@@ -56,7 +55,7 @@ export default class CanvasRenderer extends Component<Props, States>{
 
   // sets canvas and ctx 
   setRenderer = () => {
-    this.canvasRender = document.getElementById('canvasRender');    
+    this.canvasRender = document.getElementById('canvasRender');
     this.ctx = this.canvasRender.getContext('2d');
     this.canvasRender.width = this.width = window.innerWidth - 250;
     this.canvasRender.height = this.height = window.innerHeight - 50;
@@ -66,7 +65,7 @@ export default class CanvasRenderer extends Component<Props, States>{
 
   setModeTranformation = () => {
     const { mode } = this.props;
-    this.points=[]
+    this.points = []
     switch (mode) {
       case 'Rotation':
         this.resetRenderer()
@@ -95,26 +94,43 @@ export default class CanvasRenderer extends Component<Props, States>{
     e.preventDefault()
     e.persist();
     if (this.isDrawing) {
-      this.handleDrawingMode({ x:  e.clientX, y:  e.clientY- 50 })
-      }
+      this.handleDrawingMode({ x: e.clientX, y: e.clientY - 50 })
+    }
   }
 
-  handleMouseDown = (e: React.MouseEvent ) => {
+  handleMouseDown = (e: React.MouseEvent) => {
     e.preventDefault();
     e.persist();
-    this.selectNearestReferencePoint({ x:  e.clientX, y: e.clientY- 50 })
+    this.selectNearestReferencePoint({ x: e.clientX, y: e.clientY - 50 })
     this.pushPoints({ x: e.clientX, y: e.clientY - 50 })
+    // this.pushPoints({ x: e.touches ? e.touches[0].clientX : e.clientX, y: e.touches ? e.touches[0].clientY -50: e.clientY- 50 })
+    this.isDrawing = true
+    // this.selectNearestReferencePoint({ x: e.touches ? e.touches[0].clientX : e.clientX, y: e.touches ? e.touches[0].clientY -50: e.clientY- 50 })
+
+  }
+
+  handleTouchMove = (e: React.TouchEvent) => {
+    e.persist();
+    if (this.isDrawing) {
+      this.handleDrawingMode({ x: e.touches[0].clientX, y: e.touches[0].clientY - 50 })
+    }
+  }
+
+  handleTouchDown = (e: React.TouchEvent) => {
+    e.persist();
+    this.selectNearestReferencePoint({ x: e.touches[0].clientX, y: e.touches[0].clientY - 50 })
+    this.pushPoints({ x: e.touches[0].clientX, y: e.touches[0].clientY - 50 })
     // this.pushPoints({ x: e.touches ? e.touches[0].clientX : e.clientX, y: e.touches ? e.touches[0].clientY -50: e.clientY- 50 })
     this.isDrawing = true
     // this.selectNearestReferencePoint({ x: e.touches ? e.touches[0].clientX : e.clientX, y: e.touches ? e.touches[0].clientY -50: e.clientY- 50 })
   }
 
-  handleMouseLeave = (e: React.MouseEvent) => {
-    e.preventDefault() 
+  handleMouseLeave = (e: React.MouseEvent | React.TouchEvent) => {
+    e.preventDefault()
     const { updateData } = this.props
-    if(this.points.length>1){
+    if (this.points.length > 1) {
       var imgData = this.ctx.getImageData(0, 0, this.width, this.height);
-      updateData(imgData)  
+      updateData(imgData)
     }
     this.points = [];
     this.isDrawing = false
@@ -124,60 +140,60 @@ export default class CanvasRenderer extends Component<Props, States>{
     const { mode, sections } = this.props;
     const angle: number = TWOPI / sections
     this.pushPoints({ x: e.x, y: e.y })
-    if(mode==='Mirror'){
+    if (mode === 'Mirror') {
       this.handleStrokeType()
       // flip the render in order for mirror effect
       this.ctx.translate(this.width, 0);
       this.ctx.scale(-1, 1);
       this.handleStrokeType()
-    }else if(mode==='Kaliedo'||mode==='Rotation'){
+    } else if (mode === 'Kaliedo' || mode === 'Rotation') {
       for (let i = 0; i < TWOPI; i += angle) {
         this.ctx.setTransform(1, 0, 0, 1, 0, 0);
         this.ctx.translate(this.width / 2, this.height / 2);
         this.ctx.rotate(i);
         this.handleStrokeType()
-      } 
-    }else if(mode==='SquareRotation'||mode==='SquareKaliedo'){
+      }
+    } else if (mode === 'SquareRotation' || mode === 'SquareKaliedo') {
       for (let h = -this.squaresections; h <= this.height + this.squaresections; h += 2 * this.squaresections) {
         for (let w = -this.squaresections; w <= this.width + this.squaresections; w += 2 * this.squaresections) {
           for (let i = 0; i < TWOPI; i += TWOPI / 4) {
             this.ctx.restore();
             this.ctx.setTransform(1, 0, 0, 1, 0, 0);
-            this.ctx.translate(w, h);  
+            this.ctx.translate(w, h);
             this.ctx.rotate(i);
             this.handleStrokeType()
           }
         }
       }
-    }else if(mode==='Hexagon'){
+    } else if (mode === 'Hexagon') {
       let temp3 = -1;
       this.ctx.restore();
-      for(let y=-112.5; y<=this.height+112.5; y+=112.5){
-        const offset = !(temp3%2) ? -3*130 - 65 : 130;
-        for(let x=offset; x<=this.width+3*130; x+=3*130){
+      for (let y = -112.5; y <= this.height + 112.5; y += 112.5) {
+        const offset = !(temp3 % 2) ? -3 * 130 - 65 : 130;
+        for (let x = offset; x <= this.width + 3 * 130; x += 3 * 130) {
           this.ctx.setTransform(1, 0, 0, 1, 0, 0);
-          this.ctx.translate(x, y);  
+          this.ctx.translate(x, y);
           this.ctx.rotate(0);
           this.handleStrokeType()
         }
         temp3++
       }
-    }else if(mode==='HexagonRotation'||mode==='HexagonKaliedo'){
+    } else if (mode === 'HexagonRotation' || mode === 'HexagonKaliedo') {
       let temp = 0;
       this.ctx.restore();
-      for(let y=0; y<=this.height+112.5; y+=112.5){
-        const offset = !(temp%2) ? -3*130 - 65 : 130;
-        for(let x=offset; x<=this.width+3*130; x+=3*130){
+      for (let y = 0; y <= this.height + 112.5; y += 112.5) {
+        const offset = !(temp % 2) ? -3 * 130 - 65 : 130;
+        for (let x = offset; x <= this.width + 3 * 130; x += 3 * 130) {
           for (let i = 0; i <= TWOPI; i += TWOPI / 6) {
             this.ctx.setTransform(1, 0, 0, 1, 0, 0);
-            this.ctx.translate(x, y);  
+            this.ctx.translate(x, y);
             this.ctx.rotate(i);
             this.handleStrokeType()
           }
         }
         temp++
       }
-    }else{
+    } else {
       // as a default case the mirror will exec.
       this.handleStrokeType()
       this.ctx.translate(this.width, 0);
@@ -193,7 +209,7 @@ export default class CanvasRenderer extends Component<Props, States>{
     // this.ctx.lineTo(this.points[this.points.length - 1].x+offset, this.points[this.points.length - 1].y);
     // this.ctx.stroke();
     const { mode, stroke, strokeColor } = this.props;
-    const color : {r:number,g:number,b:number} = hexToRgb(strokeColor)      
+    const color: { r: number, g: number, b: number } = hexToRgb(strokeColor)
     if (stroke === 'Near Point') {
       this.ctx.lineWidth = 1;
       this.ctx.strokeStyle = `rgba(${color.r},${color.g},${color.b},0.1)`;
@@ -228,31 +244,31 @@ export default class CanvasRenderer extends Component<Props, States>{
         this.ctx.beginPath();
         this.ctx.moveTo(-this.points[this.points.length - 2].x, this.points[this.points.length - 2].y);
         this.ctx.lineTo(-this.points[this.points.length - 1].x, this.points[this.points.length - 1].y);
-        this.ctx.stroke();  
+        this.ctx.stroke();
       }
     }
   }
 
-  handleStrokeWeight = ()=>{
+  handleStrokeWeight = () => {
     const { strokeWeight, stroke } = this.props;
-    if(stroke==='Near Point'){
-      if(strokeWeight===0){
+    if (stroke === 'Near Point') {
+      if (strokeWeight === 0) {
         return 250
-      }else if(strokeWeight===1){
+      } else if (strokeWeight === 1) {
         return 500
-      }else if(strokeWeight===2){
+      } else if (strokeWeight === 2) {
         return 750
-      }else{
+      } else {
         return 1000
       }
-    }else{
-      if(strokeWeight===0){
+    } else {
+      if (strokeWeight === 0) {
         return 1
-      }else if(strokeWeight===1){
+      } else if (strokeWeight === 1) {
         return 5
-      }else if(strokeWeight===1){
+      } else if (strokeWeight === 1) {
         return 10
-      }else{
+      } else {
         return 15
       }
     }
@@ -262,42 +278,42 @@ export default class CanvasRenderer extends Component<Props, States>{
   selectNearestReferencePoint = (e: CoordinatePlane) => {
     const { mode } = this.props;
     let newactiveSection = activeBlock(e.x, e.y, this.squaresections)
-    if(mode==='HexagonRotation'||mode==='HexagonKaliedo'||mode==='Hexagon'){
+    if (mode === 'HexagonRotation' || mode === 'HexagonKaliedo' || mode === 'Hexagon') {
       newactiveSection = activeHex(e.x, e.y, this.squaresections, this.width, this.height)
       this.activeBlock = {
         x: newactiveSection.x,
         y: newactiveSection.y
       }
-    }else{
+    } else {
       this.activeBlock = {
         x: newactiveSection.x * this.squaresections,
         y: newactiveSection.y * this.squaresections
       }
-    }    
+    }
   }
 
 
   pushPoints = (e: CoordinatePlane) => {
     const { mode } = this.props;
-    if(mode==='Rotation'||mode==='Kaliedo'){
-        /**  giving an offset of width / 2 & height / 2 because
-         * canvas is translated by width / 2 & height / 2. */
+    if (mode === 'Rotation' || mode === 'Kaliedo') {
+      /**  giving an offset of width / 2 & height / 2 because
+       * canvas is translated by width / 2 & height / 2. */
       this.points.push({ x: e.x - this.width / 2, y: e.y - this.height / 2 });
-    }else if(mode==='SquareRotation'||mode==='SquareKaliedo'||mode==='HexagonRotation' || mode==='HexagonKaliedo'||mode==='Hexagon'){
-        /**  For the cases of SquareRotation,SquareKaliedo,HexagonRotation,HexagonKaliedo,Hexagon
-         *   the distance between mouse/touch and the reference point is taken and pushed into this.points,
-         *   this distance is basically normalised wrt 0,0.
-         */
-      const psk:{x:number,y:number} = midPointDiff(e.x, e.y, this.activeBlock)
+    } else if (mode === 'SquareRotation' || mode === 'SquareKaliedo' || mode === 'HexagonRotation' || mode === 'HexagonKaliedo' || mode === 'Hexagon') {
+      /**  For the cases of SquareRotation,SquareKaliedo,HexagonRotation,HexagonKaliedo,Hexagon
+       *   the distance between mouse/touch and the reference point is taken and pushed into this.points,
+       *   this distance is basically normalised wrt 0,0.
+       */
+      const psk: { x: number, y: number } = midPointDiff(e.x, e.y, this.activeBlock)
       this.points.push(psk)
-    }else{
+    } else {
       this.points.push({ x: e.x, y: e.y });
     }
   }
 
-  drawSquare = (w:number,h:number,i:number)=>{
+  drawSquare = (w: number, h: number, i: number) => {
     this.ctx.setTransform(1, 0, 0, 1, 0, 0);
-    this.ctx.translate(w, h);  
+    this.ctx.translate(w, h);
     this.ctx.rotate(i);
     this.handleStrokeType()
   }
@@ -305,7 +321,7 @@ export default class CanvasRenderer extends Component<Props, States>{
   render() {
     return (
       <CanvasOverlay>
-        <CanvasContain id='canvasRender' onMouseDown={this.handleMouseDown} onMouseMove={this.handleMouseMove} onMouseUp={this.handleMouseLeave} onMouseLeave={this.handleMouseLeave} ></CanvasContain>
+        <CanvasContain id='canvasRender' onMouseDown={this.handleMouseDown}  onMouseMove={this.handleMouseMove} onMouseUp={this.handleMouseLeave} onMouseLeave={this.handleMouseLeave} onTouchStart={this.handleTouchDown} onTouchMove={this.handleTouchMove} onTouchEnd={this.handleMouseLeave} ></CanvasContain>
       </CanvasOverlay>
     )
   }
