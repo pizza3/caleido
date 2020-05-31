@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "65bed60cccc92f30439e4ee682875c84",
+    "revision": "efddd41d639f71134c650350f48d3079",
     "url": "/caleido/index.html"
   },
   {
@@ -8,8 +8,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/caleido/static/js/2.c11251c4.chunk.js"
   },
   {
-    "revision": "791a2549429fe62ee4ba",
-    "url": "/caleido/static/js/main.4a7b97b2.chunk.js"
+    "revision": "804882f2c6fef4499c89",
+    "url": "/caleido/static/js/main.6bf83c2b.chunk.js"
   },
   {
     "revision": "9f2c1cacd4c9c75200d5",
