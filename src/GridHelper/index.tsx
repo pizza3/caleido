@@ -10,6 +10,13 @@ class Index extends Component<Props>{
     mode: 'Mirror',
     sections: 10
   }
+  componentDidMount() {
+    const This = this;
+    window.addEventListener('resize',function(){
+      This.forceUpdate();
+    })
+  }
+
   renderGrid = () => {
     const { mode } = this.props
     let grid: JSX.Element | JSX.Element[] | [] = [];

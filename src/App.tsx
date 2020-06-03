@@ -35,6 +35,12 @@ class App extends Component<{}, State> {
     showDrawingMode: false
   }
 
+  // componentDidMount(){
+  //   window.addEventListener('resize',function(){
+  //     console.log('resize happened');
+  //   })
+  // }
+
   handleSettings = (option: string | any, value: string) => {
     const { settings } = this.state;
     this.setState({

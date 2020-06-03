@@ -44,6 +44,11 @@ export default class CanvasRenderer extends Component<Props, States>{
 
   componentDidMount() {
     this.setRenderer()
+    const This = this;
+    window.addEventListener('resize',function(){
+      // handles canvas in case for screen is rotated.
+      This.forceUpdate();
+    })
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -194,7 +199,7 @@ export default class CanvasRenderer extends Component<Props, States>{
         temp++
       }
     } else {
-      // as a default case the mirror will exec.
+      // as a default case the mirror will execute.
       this.handleStrokeType()
       this.ctx.translate(this.width, 0);
       this.ctx.scale(-1, 1);
@@ -232,7 +237,6 @@ export default class CanvasRenderer extends Component<Props, States>{
         }
       }
     } else {
-      console.log(this.points);
       // if(this.points[this.points.length - 2].x<0||this.points[this.points.length - 1].x<0)return
       this.ctx.lineWidth = this.handleStrokeWeight();
       this.ctx.strokeStyle = `rgba(${color.r},${color.g},${color.b},1)`;
