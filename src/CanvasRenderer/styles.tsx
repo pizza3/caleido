@@ -3,6 +3,7 @@ import styled from 'styled-components'
 export const CanvasContain = styled.canvas`
     position: absolute;
     cursor: crosshair;
+    overflow-y: hidden;
 `
 export const CanvasOverlay = styled.div`
     width:calc(100% - 250px);
