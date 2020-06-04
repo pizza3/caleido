@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.js": "/caleido/static/js/main.dbd597c4.chunk.js",
-    "main.js.map": "/caleido/static/js/main.dbd597c4.chunk.js.map",
+    "main.js": "/caleido/static/js/main.a5e8ee12.chunk.js",
+    "main.js.map": "/caleido/static/js/main.a5e8ee12.chunk.js.map",
     "runtime-main.js": "/caleido/static/js/runtime-main.9b857941.js",
     "runtime-main.js.map": "/caleido/static/js/runtime-main.9b857941.js.map",
     "static/js/2.c11251c4.chunk.js": "/caleido/static/js/2.c11251c4.chunk.js",
     "static/js/2.c11251c4.chunk.js.map": "/caleido/static/js/2.c11251c4.chunk.js.map",
     "index.html": "/caleido/index.html",
-    "precache-manifest.79c7161ea81c168d5b38f53595bd215f.js": "/caleido/precache-manifest.79c7161ea81c168d5b38f53595bd215f.js",
+    "precache-manifest.6695135f8fed286167b08de01119b69e.js": "/caleido/precache-manifest.6695135f8fed286167b08de01119b69e.js",
     "service-worker.js": "/caleido/service-worker.js"
   },
   "entrypoints": [
     "static/js/runtime-main.9b857941.js",
     "static/js/2.c11251c4.chunk.js",
-    "static/js/main.dbd597c4.chunk.js"
+    "static/js/main.a5e8ee12.chunk.js"
   ]
 }
