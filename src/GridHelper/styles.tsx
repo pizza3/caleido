@@ -62,7 +62,7 @@ export const Diagonal2 = styled.div`
 export const RotateLine =  styled.div`
     width:1px;
     position: absolute;
-    height: 100%;
+    height: 140%;
     background:#e7e7e7;
     bottom: 50%;
     left:${(props:{left:number,angle:number})=>props.left+'px'};

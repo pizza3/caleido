@@ -71,6 +71,21 @@ export const getTextColor = (hex:string='#000000') => {
   return check < 0.5 ? 'black' : 'white';
 }
 
+export const StrokeWeight: any = {
+  'Near Point': {
+    0:250,
+    1:500,
+    2:750,
+    3:1000
+  },
+  'Line': {
+    0:1,
+    1:5,
+    2:8,
+    3:15
+  }
+}
+
 export const ModesData = [
   {
     name: 'Mirror',

@@ -1,11 +1,24 @@
 import styled from 'styled-components'
 
 export const SettingsContain = styled.div`
-    position: relative;
+    position: absolute;
+    right: ${(props:{showSettings:boolean})=>props.showSettings?'0px':'-250px'};
     width: 250px;
     height: 100%;
     background:#ffffff;
     border-left: 1px solid #f1f1f1;
+    transition: 0.4s;
+`
+
+export const SettingsButton = styled.div`
+    border: 1px solid #f1f1f1;
+    position: absolute;
+    left: -48px;
+    top: -1px;
+    background: white;
+    border-radius: 3px;
+    padding: 11px;
+    cursor: pointer;
 `
 
 export const PropContain = styled.div`

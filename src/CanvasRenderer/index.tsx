@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { CanvasContain, CanvasOverlay } from './styles';
-import { midPointDiff, activeBlock, TWOPI, hexToRgb, activeHex } from '../helpers';
+import { midPointDiff, activeBlock, TWOPI, hexToRgb, activeHex, StrokeWeight } from '../helpers';
 
 type States = {
   isDrawing: boolean,
@@ -62,7 +62,7 @@ export default class CanvasRenderer extends Component<Props, States>{
   setRenderer = () => {
     this.canvasRender = document.getElementById('canvasRender');
     this.ctx = this.canvasRender.getContext('2d');
-    this.canvasRender.width = this.width = window.innerWidth - 250;
+    this.canvasRender.width = this.width = window.innerWidth;
     this.canvasRender.height = this.height = window.innerHeight - 50;
     this.ctx.lineJoin = this.ctx.lineCap = 'round';
     this.setModeTranformation()
@@ -213,7 +213,7 @@ export default class CanvasRenderer extends Component<Props, States>{
     // this.ctx.moveTo(this.points[this.points.length - 2].x+offset, this.points[this.points.length - 2].y);
     // this.ctx.lineTo(this.points[this.points.length - 1].x+offset, this.points[this.points.length - 1].y);
     // this.ctx.stroke();
-    const { mode, stroke, strokeColor } = this.props;
+    const { mode, stroke, strokeColor, strokeWeight } = this.props;
     const color: { r: number, g: number, b: number } = hexToRgb(strokeColor)
     if (stroke === 'Near Point') {
       this.ctx.lineWidth = 1;
@@ -222,7 +222,7 @@ export default class CanvasRenderer extends Component<Props, States>{
         const dx: number = this.points[i].x + offset - (this.points[this.points.length - 1].x + offset);
         const dy: number = this.points[i].y - this.points[this.points.length - 1].y;
         const d: number = dx * dx + dy * dy;
-        const dLimit: number = this.handleStrokeWeight()
+        const dLimit: number = StrokeWeight[stroke][strokeWeight]
         if (d < dLimit) {
           this.ctx.beginPath();
           this.ctx.moveTo(this.points[this.points.length - 1].x + offset + (dx * 0.2), this.points[this.points.length - 1].y + (dy * 0.2));
@@ -238,7 +238,7 @@ export default class CanvasRenderer extends Component<Props, States>{
       }
     } else {
       // if(this.points[this.points.length - 2].x<0||this.points[this.points.length - 1].x<0)return
-      this.ctx.lineWidth = this.handleStrokeWeight();
+      this.ctx.lineWidth =  StrokeWeight[stroke][strokeWeight]
       this.ctx.strokeStyle = `rgba(${color.r},${color.g},${color.b},1)`;
       this.ctx.beginPath();
       this.ctx.moveTo(this.points[this.points.length - 2].x, this.points[this.points.length - 2].y);
@@ -251,32 +251,6 @@ export default class CanvasRenderer extends Component<Props, States>{
         this.ctx.stroke();
       }
     }
-  }
-
-  handleStrokeWeight = () => {
-    const { strokeWeight, stroke } = this.props;
-    if (stroke === 'Near Point') {
-      if (strokeWeight === 0) {
-        return 250
-      } else if (strokeWeight === 1) {
-        return 500
-      } else if (strokeWeight === 2) {
-        return 750
-      } else {
-        return 1000
-      }
-    } else {
-      if (strokeWeight === 0) {
-        return 1
-      } else if (strokeWeight === 1) {
-        return 5
-      } else if (strokeWeight === 1) {
-        return 10
-      } else {
-        return 15
-      }
-    }
-
   }
 
   selectNearestReferencePoint = (e: CoordinatePlane) => {

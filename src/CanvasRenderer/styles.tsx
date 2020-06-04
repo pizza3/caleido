@@ -6,7 +6,7 @@ export const CanvasContain = styled.canvas`
     overflow-y: hidden;
 `
 export const CanvasOverlay = styled.div`
-    width:calc(100% - 250px);
+    width:100%;
     height: cala(100vh - 50px);
     overflow:hidden;
     position: relative;

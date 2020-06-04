@@ -53,12 +53,12 @@ class Index extends Component<Props>{
   }
 
   mirrorGrid = () => {
-    const width = window.innerWidth - 250
+    const width = window.innerWidth
     return (<VerticalLine top={width / 2} />)
   }
 
   rotationalGrid = () => {
-    const width = window.innerWidth - 250
+    const width = window.innerWidth
     const { sections } = this.props
     let secs = []
     for (let i = 0; i <= 360; i += 360 / sections) {
@@ -70,7 +70,7 @@ class Index extends Component<Props>{
 
   squareGrid = () => {
     const { mode } = this.props
-    const width = window.innerWidth - 250
+    const width = window.innerWidth
     const height = window.innerHeight - 50
 
     let vert = [], horz = [], refs = [], diag = [];
@@ -96,7 +96,7 @@ class Index extends Component<Props>{
   }
 
   triangleGrid = () => {
-    const width = window.innerWidth - 250
+    const width = window.innerWidth
     const height = window.innerHeight - 50
 
     let vert = [], refs = [], diag = [];
@@ -126,7 +126,7 @@ class Index extends Component<Props>{
 
   // used only for the case of hexagon
   hexagonGrid = () => {
-    const width = window.innerWidth - 250
+    const width = window.innerWidth
     const height = window.innerHeight - 50
     let diag = [];
     let temp = 0;
