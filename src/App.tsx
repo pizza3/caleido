@@ -44,6 +44,7 @@ class App extends Component<{}, State> {
     // const { enqueueSnackbar } = this.props;
     const { newVersionAvailable } = this.state;
     if (process.env.NODE_ENV === 'production') {
+        console.log('production is runing');
         serviceWorker.register({ onUpdate: this.onServiceWorkerUpdate });
     }
     if (newVersionAvailable){
