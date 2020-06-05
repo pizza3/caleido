@@ -84,7 +84,7 @@ class Index extends Component<Props>{
     }
 
     for (let y = 130; y <= height + 130; y += 2 * 130) {
-      for (let x = 130; x <= width + 2 * 130; x += 2 * 130) {
+      for (let x = 130; x <= width + 3 * 130; x += 2 * 130) {
         refs.push(<ReferencePoint key={`${y}${x}ReferencePoint`} top={y - 4} left={x - 4} />)
         if (mode === 'SquareKaliedo') {
           diag.push(<Diagonal angle={45} key={`${y}${x}Diagonal`} top={y - 130} left={x - 130} />)
