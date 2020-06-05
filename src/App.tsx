@@ -6,8 +6,11 @@ import { Background } from './CanvasRenderer/styles'
 import GridHelper from './GridHelper'
 import AppProvider from './Context/AppProvider'
 import DrawingMode from './DrawingMode'
+import * as serviceWorker from './serviceWorker';
 import { AppContain } from './styles'
 type State = {
+  newVersionAvailable: boolean,
+  waitingWorker: ServiceWorker | null,
   settings: {
     stroke: string,
     strokeColor: string,
@@ -22,6 +25,8 @@ type State = {
 }
 class App extends Component<{}, State> {
   state: State = {
+    newVersionAvailable: false,
+    waitingWorker: null,
     settings: {
       stroke: 'Near Point',
       strokeColor: '#000000',
@@ -35,11 +40,17 @@ class App extends Component<{}, State> {
     showDrawingMode: false
   }
 
-  // componentDidMount(){
-  //   window.addEventListener('resize',function(){
-  //     console.log('resize happened');
-  //   })
-  // }
+  componentDidMount = () => {
+    // const { enqueueSnackbar } = this.props;
+    const { newVersionAvailable } = this.state;
+    if (process.env.NODE_ENV === 'production') {
+        serviceWorker.register({ onUpdate: this.onServiceWorkerUpdate });
+    }
+    if (newVersionAvailable){
+      console.log('new version avalable');
+      
+    } //show snackbar with refresh button
+  };
 
   handleSettings = (option: string | any, value: string) => {
     const { settings } = this.state;
@@ -82,11 +93,25 @@ class App extends Component<{}, State> {
     })
   }
 
-  clearData = () =>{
+  clearData = () => {
     this.setState({
       data:[]
     })
   }
+
+  onServiceWorkerUpdate = (registration: ServiceWorkerRegistration) => {
+    this.setState({
+      waitingWorker: registration && registration.waiting,
+      newVersionAvailable: true,
+    });
+  };
+
+  updateServiceWorker = () => {
+    const { waitingWorker } = this.state;
+    waitingWorker && waitingWorker.postMessage({ type: "SKIP_WAITING" });
+    this.setState({ newVersionAvailable: false });
+    window.location.reload();
+  };
 
   render() {
     const { settings, drawingMode, showDrawingMode, data } = this.state;
