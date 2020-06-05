@@ -1,7 +1,7 @@
 {
   "name": "caleido",
   "homepage": "https://pizza3.github.io/caleido",
-  "version": "0.5.0",
+  "version": "0.2.0",
   "private": true,
   "dependencies": {
     "@types/jest": "24.0.23",
