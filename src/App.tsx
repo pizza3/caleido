@@ -47,7 +47,7 @@ class App extends Component<{}, State> {
         serviceWorker.register({ onUpdate: this.onServiceWorkerUpdate });
     }
     if (newVersionAvailable){
-      console.log('new version avalable');
+      console.log('new version avalable 2');
       
     } //show snackbar with refresh button
   };
