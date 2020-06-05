@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/caleido/precache-manifest.14c618ddcd0bd404b417be113b0b9744.js"
+  "/caleido/precache-manifest.e94a149ad6806c5e7b16883fb5155f3c.js"
 );
 
 self.addEventListener('message', (event) => {
