@@ -29,6 +29,15 @@ export default class Settings extends Component<Props, State> {
     showSettings: true
   }
 
+  componentDidMount(){
+    const width = window.innerWidth;
+    if(width<600){
+      this.setState({
+        showSettings: false
+      })
+    }
+  }
+
   handleshowSettings = () => {
     const { showSettings } = this.state;
     this.setState({

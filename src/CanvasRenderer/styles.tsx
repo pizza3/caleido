@@ -7,7 +7,7 @@ export const CanvasContain = styled.canvas`
 `
 export const CanvasOverlay = styled.div`
     width:100%;
-    height: cala(100vh - 50px);
+    height: 100%;
     overflow:hidden;
     position: relative;
 `

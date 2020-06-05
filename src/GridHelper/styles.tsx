@@ -64,7 +64,7 @@ export const RotateLine =  styled.div`
     position: absolute;
     height: 140%;
     background:#e7e7e7;
-    bottom: 50%;
+    bottom: calc(50% + 0px);
     left:${(props:{left:number,angle:number})=>props.left+'px'};
     transform-origin: bottom;
     transform: ${(props)=>`rotate(${props.angle}deg)`};
